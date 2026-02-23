@@ -15,6 +15,7 @@ import {
   LogOut,
   Menu,
   X,
+  Settings,
 } from "lucide-react";
 
 const navItems = [
@@ -25,6 +26,7 @@ const navItems = [
   { label: "Prompt Generator", path: "/prompt", icon: Sparkles },
   { label: "n8n Blueprint", path: "/blueprint", icon: Package },
   { label: "Buat Video", path: "/video", icon: Film, soon: true },
+  { label: "Settings", path: "/settings", icon: Settings },
 ];
 
 const DashboardLayout = () => {
