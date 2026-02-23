@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Package, User, Zap, ShoppingBag, Shirt, UtensilsCrossed } from "lucide-react";
+import { Package, User, Zap, ShoppingBag, Shirt, UtensilsCrossed, Sparkles } from "lucide-react";
 
 const pairs = [
   {
@@ -56,7 +56,7 @@ const HasilNyataSection = () => {
         {/* Header */}
         <div className={`mb-16 flex flex-col items-center text-center sm:mb-20 ${visible ? "animate-fade-up" : "opacity-0"}`}>
           <span className="mb-5 inline-flex items-center rounded-full bg-primary/10 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.15em] text-primary">
-            ✦ HASIL NYATA
+            <Sparkles size={12} className="mr-1.5 inline" /> HASIL NYATA
           </span>
           <h2 className="font-satoshi text-2xl font-bold uppercase tracking-[0.03em] text-foreground sm:text-3xl lg:text-[40px] lg:leading-tight max-w-3xl">
             DARI FOTO PRODUK BIASA KE KONTEN UGC PREMIUM

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Sparkles } from "lucide-react";
 
 const placeholderGradients = [
   "from-purple-600 to-pink-500",
@@ -65,7 +66,7 @@ const HeroSection = () => {
           className="animate-fade-up mb-6 inline-flex items-center rounded-full bg-primary px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.15em] text-primary-foreground"
           style={{ animationDelay: "0.1s" }}
         >
-          ✦ AI-POWERED UGC GENERATOR
+          <Sparkles size={12} className="mr-1.5 inline" /> AI-POWERED UGC GENERATOR
         </div>
 
         {/* Headline with gradient text */}

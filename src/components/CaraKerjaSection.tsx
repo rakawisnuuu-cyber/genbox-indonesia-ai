@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Upload, ImagePlus, Users, Download, Sparkles } from "lucide-react";
+import { Upload, ImagePlus, Users, Download, Sparkles as SparklesIcon } from "lucide-react";
 
 const steps = [
   {
@@ -53,7 +53,7 @@ const steps = [
     visual: (
       <div className="flex flex-col items-center gap-3">
         <div className="relative h-16 w-14 rounded-lg bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/20 flex items-center justify-center">
-          <Sparkles size={20} className="text-primary" />
+          <SparklesIcon size={20} className="text-primary" />
         </div>
         <div className="flex items-center gap-1.5 rounded-lg bg-primary/20 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-primary">
           <Download size={12} />
@@ -93,7 +93,7 @@ const CaraKerjaSection = () => {
         {/* Header */}
         <div className={`mb-16 flex flex-col items-center text-center sm:mb-20 ${visible ? "animate-fade-up" : "opacity-0"}`}>
           <span className="mb-5 inline-flex items-center rounded-full bg-primary/10 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.15em] text-primary">
-            ✦ CARA KERJA
+            <SparklesIcon size={12} className="mr-1.5 inline" /> CARA KERJA
           </span>
           <h2 className="font-satoshi text-2xl font-bold uppercase tracking-[0.03em] text-foreground sm:text-3xl lg:text-[40px]">
             3 LANGKAH MUDAH

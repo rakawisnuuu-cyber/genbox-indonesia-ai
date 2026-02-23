@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Star } from "lucide-react";
+import { Star, Sparkles, Quote } from "lucide-react";
 
 const testimonials = [
   {
@@ -60,7 +60,7 @@ const TestimonialsSection = () => {
           className={`mb-14 flex flex-col items-center text-center ${visible ? "animate-fade-up" : "opacity-0"}`}
         >
           <span className="mb-5 inline-flex items-center rounded-full bg-primary/10 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.15em] text-primary">
-            ✦ TESTIMONIAL
+            <Sparkles size={12} className="mr-1.5 inline" /> TESTIMONIAL
           </span>
           <h2 className="font-satoshi text-2xl font-bold uppercase tracking-[0.03em] text-foreground sm:text-3xl lg:text-[40px]">
             APA KATA PENGGUNA GENBOX
@@ -75,9 +75,7 @@ const TestimonialsSection = () => {
               className={`rounded-xl border border-border bg-card p-6 ${visible ? "animate-fade-up" : "opacity-0"}`}
               style={{ animationDelay: `${0.15 + i * 0.12}s` }}
             >
-              <span className="text-5xl leading-none text-primary/30" aria-hidden="true">
-                ❝
-              </span>
+              <Quote size={32} className="text-primary/30" aria-hidden="true" />
               <p className="mt-3 font-body text-sm leading-relaxed text-muted-foreground">
                 {t.quote}
               </p>
@@ -110,9 +108,7 @@ const TestimonialsSection = () => {
                 key={i}
                 className="min-w-[85vw] flex-shrink-0 snap-center rounded-xl border border-border bg-card p-6"
               >
-                <span className="text-5xl leading-none text-primary/30" aria-hidden="true">
-                  ❝
-                </span>
+                <Quote size={32} className="text-primary/30" aria-hidden="true" />
                 <p className="mt-3 font-body text-sm leading-relaxed text-muted-foreground">
                   {t.quote}
                 </p>
