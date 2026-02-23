@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Plus, UserCircle, Images } from "lucide-react";
+import { Plus, UserCircle } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { PRESET_CHARACTERS } from "@/data/presetCharacters";
 import CharacterCard from "@/components/characters/CharacterCard";
+import CharacterDetailModal from "@/components/characters/CharacterDetailModal";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -25,6 +26,7 @@ const Characters = () => {
   const queryClient = useQueryClient();
   const [activeTab, setActiveTab] = useState<Tab>("preset");
   const [deleteId, setDeleteId] = useState<string | null>(null);
+  const [detailId, setDetailId] = useState<string | null>(null);
 
   const { data: customCharacters = [], isLoading } = useQuery({
     queryKey: ["characters", user?.id],
@@ -51,6 +53,41 @@ const Characters = () => {
     queryClient.invalidateQueries({ queryKey: ["characters"] });
     setDeleteId(null);
   };
+
+  // Resolve detail character from preset or custom
+  const detailCharacter = detailId
+    ? (() => {
+        const preset = PRESET_CHARACTERS.find((c) => c.id === detailId);
+        if (preset) {
+          return {
+            id: preset.id,
+            name: preset.name,
+            tags: preset.tags,
+            description: preset.description,
+            gradient: preset.gradient,
+            isPreset: true,
+            gender: preset.gender,
+            age_range: preset.age_range,
+            config: preset.config,
+          };
+        }
+        const custom = customCharacters.find((c) => c.id === detailId);
+        if (custom) {
+          return {
+            id: custom.id,
+            name: custom.name,
+            tags: custom.tags || [],
+            description: custom.description || "",
+            heroImageUrl: custom.hero_image_url,
+            isPreset: false,
+            gender: custom.gender || undefined,
+            age_range: custom.age_range || undefined,
+            config: (custom.config as Record<string, string>) || undefined,
+          };
+        }
+        return null;
+      })()
+    : null;
 
   const tabs: { key: Tab; label: string }[] = [
     { key: "preset", label: "PRESET" },
@@ -110,6 +147,7 @@ const Characters = () => {
                 isPreset
                 index={i}
                 onUse={handleUse}
+                onDetail={setDetailId}
               />
             ))}
           </div>
@@ -153,12 +191,26 @@ const Characters = () => {
                 isPreset={false}
                 index={i}
                 onUse={handleUse}
+                onDetail={setDetailId}
                 onDelete={setDeleteId}
               />
             ))}
           </div>
         )}
       </div>
+
+      {/* Character Detail Modal */}
+      {detailCharacter && (
+        <CharacterDetailModal
+          character={detailCharacter}
+          onClose={() => setDetailId(null)}
+          onUse={handleUse}
+          onDelete={(id) => {
+            setDetailId(null);
+            setDeleteId(id);
+          }}
+        />
+      )}
 
       {/* Delete Confirmation */}
       <AlertDialog open={!!deleteId} onOpenChange={(open) => !open && setDeleteId(null)}>
