@@ -36,7 +36,7 @@ const HargaSection = () => {
   }, []);
 
   return (
-    <section ref={ref} className="relative w-full px-4 py-20 sm:py-28">
+    <section ref={ref} className="relative w-full px-4 py-12 sm:py-16">
       <div className="container mx-auto max-w-[900px]">
         {/* Header */}
         <div className={`mb-16 flex flex-col items-center text-center sm:mb-20 ${visible ? "animate-fade-up" : "opacity-0"}`}>

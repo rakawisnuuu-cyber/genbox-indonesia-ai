@@ -245,7 +245,7 @@ const FiturSection = () => {
   }, []);
 
   return (
-    <section className="relative w-full bg-background px-4 py-20 sm:py-28">
+    <section className="relative w-full bg-background px-4 py-12 sm:py-16">
       <div className="container mx-auto max-w-[1200px]">
         {/* Section header */}
         <div

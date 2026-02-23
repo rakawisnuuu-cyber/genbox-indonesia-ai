@@ -51,7 +51,7 @@ const TestimonialsSection = () => {
   }, []);
 
   return (
-    <section ref={ref} id="testimonial" className="relative w-full overflow-hidden px-4 py-20 sm:py-28">
+    <section ref={ref} id="testimonial" className="relative w-full overflow-hidden px-4 py-12 sm:py-16">
       {/* Decorative glow */}
       <div className="pointer-events-none absolute -left-40 bottom-20 h-[400px] w-[400px] rounded-full opacity-[0.03]" style={{ background: "radial-gradient(circle, hsl(73 100% 50%) 0%, transparent 70%)" }} aria-hidden="true" />
       <div className="container mx-auto max-w-6xl">

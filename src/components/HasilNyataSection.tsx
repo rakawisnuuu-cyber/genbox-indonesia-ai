@@ -48,7 +48,7 @@ const HasilNyataSection = () => {
   return (
     <section
       ref={ref}
-      className="relative w-full overflow-hidden px-4 py-20 sm:py-28"
+      className="relative w-full overflow-hidden px-4 py-12 sm:py-16"
     >
       {/* Decorative glow */}
       <div className="pointer-events-none absolute -right-40 top-20 h-[400px] w-[400px] rounded-full opacity-[0.03]" style={{ background: "radial-gradient(circle, hsl(73 100% 50%) 0%, transparent 70%)" }} aria-hidden="true" />
