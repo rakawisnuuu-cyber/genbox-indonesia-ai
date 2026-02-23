@@ -47,7 +47,9 @@ const FAQSection = () => {
   }, []);
 
   return (
-    <section ref={ref} id="faq" className="relative w-full px-4 py-20 sm:py-28">
+    <section ref={ref} id="faq" className="relative w-full overflow-hidden px-4 py-20 sm:py-28">
+      {/* Decorative glow */}
+      <div className="pointer-events-none absolute -right-32 top-1/2 h-[350px] w-[350px] -translate-y-1/2 rounded-full opacity-[0.03]" style={{ background: "radial-gradient(circle, hsl(73 100% 50%) 0%, transparent 70%)" }} aria-hidden="true" />
       <div className="container mx-auto max-w-[700px]">
         <div className={`mb-14 flex flex-col items-center text-center ${visible ? "animate-fade-up" : "opacity-0"}`}>
           <span className="mb-5 inline-flex items-center rounded-full bg-primary/10 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.15em] text-primary">
