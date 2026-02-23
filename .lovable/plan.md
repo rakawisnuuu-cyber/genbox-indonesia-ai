@@ -1,36 +1,53 @@
 
 
-# GENBOX Landing Page — Navigation & Hero Section
+## Supabase Auth Setup for Vite + React
 
-## Overview
-Build the landing page for GENBOX, an AI UGC Generator platform targeting Indonesian affiliate marketers. Dark-themed, modern startup aesthetic with lime green (#BFFF00) accents.
+### Important Note
+This project uses **Vite + React + React Router**, not Next.js. The Next.js-specific packages (`@supabase/auth-helpers-nextjs`) and patterns (`middleware.ts`, server components) don't apply here. Below is the equivalent setup adapted for this stack.
 
-## Design System Setup
-- Dark-only theme with custom color palette (#0A0A0A background, #BFFF00 lime accent)
-- Google Fonts: Satoshi (headings), DM Sans (body), JetBrains Mono (monospace)
-- Custom component styles: cards with hover glow, lime CTA buttons, ghost secondary buttons
-- Motion system: staggered fade-in animations using CSS @keyframes and Intersection Observer
+### What Will Be Created
 
-## Navigation Bar (Fixed Top)
-- Glassmorphism navbar: semi-transparent black with backdrop blur
-- **Desktop**: Logo left, centered nav links (Fitur, Cara Kerja, Harga, FAQ), lime "MULAI GRATIS" button right
-- **Mobile**: Logo left, hamburger icon right opening a full-screen overlay menu with all nav links
-- Slide-down entrance animation on page load
-- All text in Bahasa Indonesia
+**1. Install `@supabase/supabase-js`**
+- Only package needed for a Vite/React app (no auth-helpers-nextjs)
 
-## Hero Section (Full Viewport)
-- Full-screen height with radial gradient background and subtle CSS grid pattern overlay
-- Staggered content reveal animation (badge → headline → subheadline → buttons → trust text → image row)
-- Lime pill badge: "✦ AI-POWERED UGC GENERATOR"
-- Bold uppercase headline: "BIKIN KONTEN UGC REALISTIS DALAM 30 DETIK" (56px desktop / 32px mobile)
-- Descriptive subheadline explaining the product value prop
-- Two CTA buttons: "MULAI GRATIS →" (lime) + "LIHAT DEMO ▶" (ghost), stacked on mobile
-- Trust indicators: "Gratis 3 kredit • Tanpa kartu kredit • Setup 30 detik"
-- Auto-scrolling marquee of 5 placeholder UGC example cards (gradient cards, 200×280px, infinite CSS animation)
+**2. `src/lib/supabase.ts` -- Supabase browser client**
+- Uses `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` environment variables (Vite uses `VITE_` prefix, not `NEXT_PUBLIC_`)
+- Single `createClient` instance for the entire app
 
-## Responsive Design
-- Mobile-first: single column, 16px padding, touch-friendly targets (44px min)
-- Tablet (768px+): two-column layouts where appropriate
-- Desktop (1024px+): max-width 1200px centered container
-- All typography scales down appropriately on smaller screens
+**3. `src/contexts/AuthContext.tsx` -- Auth state provider**
+- React context that wraps the app
+- Listens to `onAuthStateChange` for session updates
+- Exposes `user`, `session`, `loading`, `signOut` to all components
 
+**4. `src/components/ProtectedRoute.tsx` -- Route guard component**
+- Replaces the concept of Next.js middleware
+- Wraps protected routes; redirects to `/login` if no session
+- Shows a loading state while checking auth
+
+**5. `src/components/PublicRoute.tsx` -- Reverse guard**
+- Wraps `/login` and `/register` routes
+- Redirects logged-in users to `/dashboard`
+
+**6. Update `src/App.tsx` -- Wire up routes**
+- Wrap app in `AuthProvider`
+- Add protected routes: `/dashboard`, `/generate`, `/gallery`, `/character`, `/prompt`, `/settings`
+- Add public routes: `/login`, `/register`
+
+### What About `server.ts` and `admin.ts`?
+- **No server-side client needed** -- Vite is a client-only SPA. Server-side logic belongs in Supabase Edge Functions, which have their own built-in Supabase client via `Deno.env`
+- **No admin client in the frontend** -- The `service_role` key must never be in client code. If you need admin operations (e.g., webhook handlers), those go in Supabase Edge Functions where the service role key is available as a secret
+
+### Route Protection Map
+
+| Route | Behavior |
+|-------|----------|
+| `/dashboard`, `/generate`, `/gallery`, `/character`, `/prompt`, `/settings` | Redirect to `/login` if not authenticated |
+| `/login`, `/register` | Redirect to `/dashboard` if already authenticated |
+| `/`, `/*` | Public, no protection |
+
+### Technical Details
+
+- Environment variables use `VITE_` prefix (not `NEXT_PUBLIC_`)
+- Auth state managed via `onAuthStateChange` listener (set up before `getSession()`)
+- Route protection is component-based using React Router wrappers, not file-system middleware
+- Placeholder pages will be created for `/login` and `/register` so the routes work immediately
