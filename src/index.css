@@ -60,6 +60,10 @@
     @apply border-border;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply bg-background text-foreground;
     font-family: 'DM Sans', sans-serif;
@@ -67,6 +71,28 @@
 
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Satoshi', 'Inter', sans-serif;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .animate-marquee {
+    animation: none !important;
+  }
+  .animate-float {
+    animation: none !important;
+  }
+  .animate-cta-glow {
+    animation: none !important;
+  }
+  .animate-pulse-subtle {
+    animation: none !important;
   }
 }
 
@@ -107,15 +133,18 @@
 .animate-fade-up {
   opacity: 0;
   animation: fade-up 0.6s ease-out forwards;
+  will-change: transform, opacity;
 }
 
 .animate-marquee {
   animation: marquee 30s linear infinite;
+  will-change: transform;
 }
 
 .animate-fade-slide-right {
   opacity: 0;
   animation: fade-slide-right 0.6s ease-out forwards;
+  will-change: transform, opacity;
 }
 
 /* Grid pattern overlay */
@@ -126,6 +155,7 @@
 
 .animate-cta-glow {
   animation: cta-glow 2.5s ease-in-out infinite;
+  will-change: box-shadow;
 }
 
 @keyframes float {
@@ -135,6 +165,7 @@
 
 .animate-float {
   animation: float 3s ease-in-out infinite;
+  will-change: transform;
 }
 
 @keyframes pulse-subtle {
@@ -144,6 +175,7 @@
 
 .animate-pulse-subtle {
   animation: pulse-subtle 2s ease-in-out infinite;
+  will-change: transform, opacity;
 }
 
 .scrollbar-none::-webkit-scrollbar { display: none; }
