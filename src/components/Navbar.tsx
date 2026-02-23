@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
-import genboxLogo from "@/assets/genbox-logo.png";
 
 const navLinks = [
   { label: "Fitur", href: "#fitur" },
@@ -25,8 +24,8 @@ const Navbar = () => {
     >
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         {/* Logo */}
-        <a href="#" className="flex items-center">
-          <img src={genboxLogo} alt="GENBOX" className="h-8" />
+        <a href="#" className="font-satoshi text-xl font-bold tracking-[0.1em] text-foreground">
+          GENBOX
         </a>
 
         {/* Desktop Nav */}
