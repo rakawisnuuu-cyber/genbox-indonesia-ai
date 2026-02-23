@@ -91,15 +91,15 @@ const HargaSection = () => {
           >
             {/* Best Value ribbon */}
             <div className="mb-3 flex justify-center">
-              <span className="inline-flex items-center rounded-full bg-primary px-4 py-1 text-[11px] font-bold uppercase tracking-[0.12em] text-primary-foreground">
-                PALING WORTH IT <Sparkles size={11} className="ml-1 inline" />
+              <span className="animate-cta-glow inline-flex items-center rounded-full bg-primary px-5 py-1.5 text-[12px] font-bold uppercase tracking-[0.12em] text-primary-foreground shadow-[0_0_20px_-3px_hsl(var(--primary)/0.4)]">
+                PALING WORTH IT <Sparkles size={12} className="ml-1.5 inline" />
               </span>
             </div>
 
-            <div className="animate-float rounded-xl border-2 border-primary bg-card p-8 shadow-[0_0_40px_-5px_hsl(var(--primary)/0.12)]">
+            <div className="rounded-xl border-2 border-primary bg-card p-8 shadow-[0_0_60px_-10px_hsl(var(--primary)/0.2)] transition-shadow duration-500 hover:shadow-[0_0_80px_-10px_hsl(var(--primary)/0.3)]">
               <h3 className="font-satoshi text-xl font-bold text-foreground">BYOK LIFETIME</h3>
               <div className="mt-4 flex items-baseline gap-1">
-                <span className="font-satoshi text-[32px] font-bold text-foreground sm:text-[40px]">Rp 249.000</span>
+                <span className="font-satoshi text-[36px] font-bold text-foreground sm:text-[44px]">Rp 249.000</span>
               </div>
               <p className="mt-1 text-sm font-bold text-primary">sekali bayar • akses selamanya</p>
 
@@ -120,7 +120,7 @@ const HargaSection = () => {
                 </p>
               </div>
 
-              <button className="mt-6 flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3.5 text-sm font-bold uppercase tracking-wider text-primary-foreground transition-all hover:brightness-110 hover:-translate-y-0.5">
+              <button className="animate-cta-glow mt-6 flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-6 py-4 text-sm font-bold uppercase tracking-wider text-primary-foreground transition-all hover:brightness-110 hover:-translate-y-0.5">
                 GENERATE SEKARANG <ArrowRight size={16} />
               </button>
 
