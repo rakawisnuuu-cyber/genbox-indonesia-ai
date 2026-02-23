@@ -1,25 +1,22 @@
 import { useRef, useMemo } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Float } from "@react-three/drei";
 import * as THREE from "three";
 
 const LIME = new THREE.Color("hsl(73, 100%, 50%)");
-const DARK = new THREE.Color("hsl(0, 0%, 8%)");
 
-/* Slowly rotating wireframe icosahedron */
+/* Slowly rotating wireframe icosahedron with manual float */
 const WireGlobe = () => {
   const ref = useRef<THREE.Mesh>(null!);
-  useFrame((_, delta) => {
+  useFrame(({ clock }, delta) => {
     ref.current.rotation.y += delta * 0.08;
     ref.current.rotation.x += delta * 0.04;
+    ref.current.position.y = Math.sin(clock.elapsedTime * 0.8) * 0.3;
   });
   return (
-    <Float speed={1.2} rotationIntensity={0.3} floatIntensity={0.6}>
-      <mesh ref={ref} position={[0, 0, 0]}>
-        <icosahedronGeometry args={[2.6, 1]} />
-        <meshBasicMaterial color={LIME} wireframe opacity={0.07} transparent />
-      </mesh>
-    </Float>
+    <mesh ref={ref} position={[0, 0, 0]}>
+      <icosahedronGeometry args={[2.6, 1]} />
+      <meshBasicMaterial color={LIME} wireframe opacity={0.07} transparent />
+    </mesh>
   );
 };
 
