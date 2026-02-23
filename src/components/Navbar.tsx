@@ -53,7 +53,8 @@ const Navbar = () => {
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="inline-flex h-11 w-11 items-center justify-center rounded-lg text-foreground transition-colors hover:bg-secondary md:hidden"
-          aria-label="Toggle menu"
+          aria-label={isOpen ? "Tutup menu navigasi" : "Buka menu navigasi"}
+          aria-expanded={isOpen}
         >
           {isOpen ? <X size={24} /> : <Menu size={24} />}
         </button>

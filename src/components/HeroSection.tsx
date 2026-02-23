@@ -65,6 +65,7 @@ const HeroSection = () => {
         >
           <a
             href="#harga"
+            aria-label="Mulai gratis - lihat harga"
             className="flex h-12 w-full items-center justify-center rounded-lg bg-primary px-8 text-sm font-bold uppercase tracking-wider text-primary-foreground transition-all duration-200 hover:-translate-y-px hover:bg-lime-hover sm:w-auto"
           >
             MULAI GRATIS →
