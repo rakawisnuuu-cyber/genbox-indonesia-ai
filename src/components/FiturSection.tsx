@@ -255,7 +255,7 @@ const FiturSection = () => {
           }`}
         >
           <span className="mb-5 inline-flex items-center rounded-full bg-primary/10 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.15em] text-primary">
-            ✦ FITUR UTAMA
+            <Sparkles size={12} className="mr-1.5 inline" /> FITUR UTAMA
           </span>
           <h2 className="max-w-[700px] font-satoshi text-2xl font-bold uppercase tracking-[0.03em] text-foreground sm:text-3xl lg:text-[40px] lg:leading-[1.15]">
             SEMUA YANG KAMU BUTUHKAN UNTUK KONTEN UGC

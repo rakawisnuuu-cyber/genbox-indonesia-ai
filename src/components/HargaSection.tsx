@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Check, X, ArrowRight, Lock, Zap, Infinity } from "lucide-react";
+import { Check, X, ArrowRight, Lock, Zap, Infinity, Gift, Sparkles } from "lucide-react";
 
 const freeFeatures = [
   { text: "3 kredit gambar gratis", included: true },
@@ -41,7 +41,7 @@ const HargaSection = () => {
         {/* Header */}
         <div className={`mb-16 flex flex-col items-center text-center sm:mb-20 ${visible ? "animate-fade-up" : "opacity-0"}`}>
           <span className="mb-5 inline-flex items-center rounded-full bg-primary/10 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.15em] text-primary">
-            ✦ HARGA
+            <Sparkles size={12} className="mr-1.5 inline" /> HARGA
           </span>
           <h2 className="font-satoshi text-2xl font-bold uppercase tracking-[0.03em] text-foreground sm:text-3xl lg:text-[40px] lg:leading-tight">
             SATU KALI BAYAR. SELAMANYA MILIKMU.
@@ -92,7 +92,7 @@ const HargaSection = () => {
             {/* Best Value ribbon */}
             <div className="mb-3 flex justify-center">
               <span className="inline-flex items-center rounded-full bg-primary px-4 py-1 text-[11px] font-bold uppercase tracking-[0.12em] text-primary-foreground">
-                PALING WORTH IT ✦
+                PALING WORTH IT <Sparkles size={11} className="ml-1 inline" />
               </span>
             </div>
 
@@ -114,7 +114,7 @@ const HargaSection = () => {
 
               {/* Bonus box */}
               <div className="mt-6 rounded-lg border border-border bg-secondary p-4">
-                <p className="text-[13px] font-semibold text-foreground">🎁 BONUS: n8n Automation Blueprint (worth Rp 500.000)</p>
+                <p className="flex items-center gap-1.5 text-[13px] font-semibold text-foreground"><Gift size={14} className="shrink-0 text-primary" /> BONUS: n8n Automation Blueprint (worth Rp 500.000)</p>
                 <p className="mt-1 text-[13px] leading-relaxed text-muted-foreground">
                   Template workflow AI buat auto-generate konten UGC dari katalog produk kamu
                 </p>
@@ -128,7 +128,7 @@ const HargaSection = () => {
                 Pembayaran via QRIS, GoPay, OVO, Dana, Transfer Bank
               </p>
               <p className="mt-1 text-center text-[11px] text-muted-foreground">
-                ⚡ Biaya API kamu sendiri: cuma ~Rp 150-500/gambar
+                <Zap size={11} className="mr-0.5 inline text-primary" /> Biaya API kamu sendiri: cuma ~Rp 150-500/gambar
               </p>
             </div>
           </div>
