@@ -5,7 +5,7 @@ const steps = [
   {
     num: "01",
     title: "Upload Foto Produk",
-    desc: "Drag & drop foto produk kamu. AI otomatis deteksi jenis produk.",
+    desc: "Tinggal drag & drop foto produk kamu. AI otomatis deteksi jenis produknya.",
     visual: (
       <div className="flex flex-col items-center gap-3">
         <div className="relative flex h-16 w-16 items-center justify-center rounded-2xl border border-dashed border-border bg-background">
@@ -24,7 +24,7 @@ const steps = [
   {
     num: "02",
     title: "Pilih Karakter & Scene",
-    desc: "Pilih karakter Indonesia dan pose yang sesuai target market kamu.",
+    desc: "Pilih karakter dan pose yang sesuai sama target market kamu.",
     visual: (
       <div className="flex flex-col items-center gap-3">
         <div className="grid grid-cols-3 gap-2">
@@ -49,7 +49,7 @@ const steps = [
   {
     num: "03",
     title: "Generate & Download",
-    desc: "Klik generate, tunggu 20 detik, download hasilnya. Selesai!",
+    desc: "Klik generate, tunggu 20 detik, langsung download. Gampang banget!",
     visual: (
       <div className="flex flex-col items-center gap-3">
         <div className="relative h-16 w-14 rounded-lg bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/20 flex items-center justify-center">

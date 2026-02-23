@@ -9,27 +9,27 @@ import {
 const faqs = [
   {
     q: "Apa itu GENBOX?",
-    a: "GENBOX adalah platform AI yang generate gambar dan video UGC realistis untuk affiliate marketer Indonesia. Upload foto produk, pilih karakter, dan dapatkan konten berkualitas studio dalam 30 detik.",
+    a: "GENBOX adalah platform AI yang bantu kamu generate gambar dan video UGC realistis buat jualan online. Tinggal upload foto produk, pilih karakter, dan dalam 30 detik konten kamu udah siap posting.",
   },
   {
-    q: "Apakah hasilnya terlihat realistis?",
-    a: "Ya! AI kami generate gambar hyper-realistic yang terlihat seperti difoto oleh orang sungguhan dengan iPhone. Cocok untuk TikTok dan Instagram.",
+    q: "Hasilnya beneran kelihatan real?",
+    a: "Beneran! AI kami generate gambar hyper-realistic yang kelihatan kayak difoto pakai iPhone sama orang sungguhan. Udah banyak seller yang pakai buat TikTok dan Instagram.",
   },
   {
-    q: "Karakter apa saja yang tersedia?",
-    a: "Kami punya 10+ karakter Indonesia: hijab casual, urban trendy, ibu muda, mahasiswa, beauty enthusiast, dan lainnya. Kamu juga bisa kustomisasi.",
+    q: "Karakter apa aja yang tersedia?",
+    a: "Ada 10+ karakter Indonesia: hijab casual, urban trendy, ibu muda, mahasiswa, beauty enthusiast, dan lainnya. Kamu juga bisa kustomisasi sesuai kebutuhan.",
   },
   {
-    q: "Bagaimana cara pembayaran?",
-    a: "Satu kali bayar Rp 249.000 untuk akses lifetime. Pembayaran melalui QRIS, GoPay, OVO, Dana, ShopeePay, dan transfer bank.",
+    q: "Bayarnya gimana?",
+    a: "Satu kali bayar Rp 249.000, akses selamanya. Bisa bayar pakai QRIS, GoPay, OVO, Dana, ShopeePay, atau transfer bank.",
   },
   {
-    q: "Apa itu BYOK?",
-    a: "BYOK (Bring Your Own Key) artinya kamu pakai API key sendiri untuk generate tanpa batas. Kamu bayar biaya API langsung ke provider (~Rp 150-500/gambar). Akses platform GENBOX lifetime.",
+    q: "BYOK itu apa sih?",
+    a: "BYOK (Bring Your Own Key) artinya kamu pakai API key sendiri buat generate tanpa batas. Biaya API langsung ke provider, cuma ~Rp 150-500 per gambar. Platform GENBOX-nya gratis selamanya.",
   },
   {
-    q: "Apakah ada free trial?",
-    a: "Ya! Setiap akun baru mendapat 3 kredit gambar gratis. Tanpa kartu kredit, tanpa komitmen.",
+    q: "Ada free trial gak?",
+    a: "Ada dong! Setiap akun baru dapet 3 kredit gambar gratis. Tanpa kartu kredit, tanpa komitmen. Langsung bisa coba.",
   },
 ];
 
