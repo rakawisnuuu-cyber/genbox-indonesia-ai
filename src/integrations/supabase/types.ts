@@ -14,6 +14,54 @@ export type Database = {
   }
   public: {
     Tables: {
+      characters: {
+        Row: {
+          age_range: string | null
+          config: Json | null
+          created_at: string
+          description: string | null
+          gender: string | null
+          hero_image_url: string | null
+          id: string
+          is_preset: boolean
+          name: string
+          style: string | null
+          tags: string[] | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          age_range?: string | null
+          config?: Json | null
+          created_at?: string
+          description?: string | null
+          gender?: string | null
+          hero_image_url?: string | null
+          id?: string
+          is_preset?: boolean
+          name: string
+          style?: string | null
+          tags?: string[] | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          age_range?: string | null
+          config?: Json | null
+          created_at?: string
+          description?: string | null
+          gender?: string | null
+          hero_image_url?: string | null
+          id?: string
+          is_preset?: boolean
+          name?: string
+          style?: string | null
+          tags?: string[] | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       generations: {
         Row: {
           created_at: string
