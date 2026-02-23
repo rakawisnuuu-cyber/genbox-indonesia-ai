@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import { Check, X, ArrowRight, Lock, Zap, Infinity, Gift, Sparkles } from "lucide-react";
 
 const freeFeatures = [
@@ -79,9 +80,9 @@ const HargaSection = () => {
               ))}
             </ul>
 
-            <button className="mt-8 w-full rounded-lg border border-border bg-secondary px-6 py-3 text-sm font-semibold uppercase tracking-wider text-foreground transition-colors hover:bg-secondary/80">
+            <Link to="/register" className="mt-8 block w-full rounded-lg border border-border bg-secondary px-6 py-3 text-center text-sm font-semibold uppercase tracking-wider text-foreground transition-colors hover:bg-secondary/80">
               MULAI GRATIS
-            </button>
+            </Link>
           </div>
 
           {/* BYOK Card */}
@@ -120,9 +121,9 @@ const HargaSection = () => {
                 </p>
               </div>
 
-              <button className="animate-cta-glow mt-6 flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-6 py-4 text-sm font-bold uppercase tracking-wider text-primary-foreground transition-all hover:brightness-110 hover:-translate-y-0.5">
+              <Link to="/register" className="animate-cta-glow mt-6 flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-6 py-4 text-sm font-bold uppercase tracking-wider text-primary-foreground transition-all hover:brightness-110 hover:-translate-y-0.5">
                 GENERATE SEKARANG <ArrowRight size={16} />
-              </button>
+              </Link>
 
               <p className="mt-3 text-center text-[11px] text-muted-foreground">
                 Pembayaran via QRIS, GoPay, OVO, Dana, Transfer Bank

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { Sparkles } from "lucide-react";
 
 const placeholderGradients = [
@@ -97,13 +98,13 @@ const HeroSection = () => {
           className="animate-fade-up mt-8 flex w-full flex-col items-center gap-3 sm:w-auto sm:flex-row sm:gap-4"
           style={{ animationDelay: "0.4s" }}
         >
-          <a
-            href="#harga"
-            aria-label="Mulai gratis - lihat harga"
+          <Link
+            to="/register"
+            aria-label="Mulai gratis - daftar akun"
             className="flex h-12 w-full items-center justify-center rounded-lg bg-primary px-8 text-sm font-bold uppercase tracking-wider text-primary-foreground transition-all duration-200 hover:-translate-y-px hover:bg-lime-hover sm:w-auto"
           >
             MULAI GRATIS →
-          </a>
+          </Link>
           <a
             href="#cara-kerja"
             className="flex h-12 w-full items-center justify-center rounded-lg border border-foreground/20 bg-transparent px-8 text-sm font-bold uppercase tracking-wider text-foreground transition-all duration-200 hover:bg-foreground/5 sm:w-auto"
