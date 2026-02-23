@@ -119,6 +119,15 @@
 }
 
 /* Grid pattern overlay */
+@keyframes cta-glow {
+  0%, 100% { box-shadow: 0 0 20px -5px hsl(73 100% 50% / 0.2); }
+  50% { box-shadow: 0 0 30px -2px hsl(73 100% 50% / 0.35); }
+}
+
+.animate-cta-glow {
+  animation: cta-glow 2.5s ease-in-out infinite;
+}
+
 @keyframes float {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-6px); }
