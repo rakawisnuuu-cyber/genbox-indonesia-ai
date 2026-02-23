@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import SocialProofBar from "@/components/SocialProofBar";
 import DibuatUntukSection from "@/components/DibuatUntukSection";
+import FiturSection from "@/components/FiturSection";
 
 const Index = () => {
   return (
@@ -10,6 +11,7 @@ const Index = () => {
       <HeroSection />
       <SocialProofBar />
       <DibuatUntukSection />
+      <FiturSection />
     </div>
   );
 };
