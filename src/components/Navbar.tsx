@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 
 const navLinks = [
@@ -42,12 +43,12 @@ const Navbar = () => {
         </div>
 
         {/* Desktop CTA */}
-        <a
-          href="#"
+        <Link
+          to="/register"
           className="hidden rounded-lg bg-primary px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-primary-foreground transition-all duration-200 hover:bg-lime-hover hover:-translate-y-px md:inline-block"
         >
           MULAI GRATIS
-        </a>
+        </Link>
 
         {/* Mobile Hamburger */}
         <button
@@ -73,13 +74,13 @@ const Navbar = () => {
               {link.label}
             </a>
           ))}
-          <a
-            href="#"
+          <Link
+            to="/register"
             onClick={() => setIsOpen(false)}
             className="mt-4 rounded-lg bg-primary px-8 py-3 text-sm font-bold uppercase tracking-wider text-primary-foreground transition-all duration-200 hover:bg-lime-hover"
           >
             MULAI GRATIS
-          </a>
+          </Link>
         </div>
       )}
     </nav>
