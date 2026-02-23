@@ -61,7 +61,7 @@ const FAQSection = () => {
         <Accordion type="single" collapsible className={`${visible ? "animate-fade-up" : "opacity-0"}`} style={{ animationDelay: "0.15s" }}>
           {faqs.map((faq, i) => (
             <AccordionItem key={i} value={`item-${i}`} className="border-border">
-              <AccordionTrigger className="py-5 text-left font-satoshi text-base font-semibold text-foreground hover:no-underline [&[data-state=open]>svg]:text-primary [&>svg]:text-primary [&>svg]:transition-transform">
+              <AccordionTrigger className="min-h-[44px] py-5 text-left font-satoshi text-base font-semibold text-foreground hover:no-underline [&[data-state=open]>svg]:text-primary [&>svg]:text-primary [&>svg]:transition-transform">
                 {faq.q}
               </AccordionTrigger>
               <AccordionContent className="pb-5 font-body text-sm leading-relaxed text-muted-foreground">
