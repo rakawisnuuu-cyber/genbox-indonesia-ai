@@ -186,3 +186,14 @@
     linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
   background-size: 60px 60px;
 }
+
+/* Hero floating particles */
+@keyframes hero-particle-float {
+  0%, 100% { transform: translateY(0) scale(1); opacity: 0.6; }
+  50% { transform: translateY(-18px) scale(1.3); opacity: 1; }
+}
+
+.hero-particle {
+  animation: hero-particle-float 4s ease-in-out infinite;
+  will-change: transform, opacity;
+}
