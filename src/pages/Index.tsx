@@ -5,6 +5,7 @@ import DibuatUntukSection from "@/components/DibuatUntukSection";
 import FiturSection from "@/components/FiturSection";
 import CaraKerjaSection from "@/components/CaraKerjaSection";
 import HasilNyataSection from "@/components/HasilNyataSection";
+import HargaSection from "@/components/HargaSection";
 
 const Index = () => {
   return (
@@ -16,6 +17,7 @@ const Index = () => {
       <FiturSection />
       <CaraKerjaSection />
       <HasilNyataSection />
+      <HargaSection />
     </div>
   );
 };
