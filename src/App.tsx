@@ -13,6 +13,10 @@ import DashboardLayout from "@/components/DashboardLayout";
 import DashboardHome from "./pages/DashboardHome";
 import Characters from "./pages/Characters";
 import CreateCharacter from "./pages/CreateCharacter";
+import Gallery from "./pages/Gallery";
+import Generate from "./pages/Generate";
+import PromptGenerator from "./pages/PromptGenerator";
+import Blueprint from "./pages/Blueprint";
 import Settings from "./pages/Settings";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
@@ -47,12 +51,12 @@ const App = () => (
             {/* Dashboard layout wraps all authenticated routes */}
             <Route element={<ProtectedRoute><DashboardLayout /></ProtectedRoute>}>
               <Route path="/dashboard" element={<DashboardHome />} />
-              <Route path="/generate" element={<PlaceholderPage title="Buat Gambar" />} />
+              <Route path="/generate" element={<Generate />} />
               <Route path="/characters" element={<Characters />} />
               <Route path="/characters/create" element={<CreateCharacter />} />
-              <Route path="/gallery" element={<PlaceholderPage title="Gallery" />} />
-              <Route path="/prompt" element={<PlaceholderPage title="Prompt Generator" />} />
-              <Route path="/blueprint" element={<PlaceholderPage title="n8n Blueprint" />} />
+              <Route path="/gallery" element={<Gallery />} />
+              <Route path="/prompt" element={<PromptGenerator />} />
+              <Route path="/blueprint" element={<Blueprint />} />
               <Route path="/video" element={<PlaceholderPage title="Buat Video" />} />
               <Route path="/settings" element={<Settings />} />
             </Route>
