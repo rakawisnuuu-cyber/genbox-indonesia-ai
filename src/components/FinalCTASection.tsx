@@ -37,10 +37,10 @@ const FinalCTASection = () => {
           className={`mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center ${visible ? "animate-fade-up" : "opacity-0"}`}
           style={{ animationDelay: "0.2s" }}
         >
-          <button className="animate-cta-glow flex items-center gap-2 rounded-lg bg-primary px-8 py-4 text-sm font-bold uppercase tracking-wider text-primary-foreground transition-all hover:brightness-110 hover:-translate-y-0.5">
+          <button className="animate-cta-glow flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-8 py-4 text-sm font-bold uppercase tracking-wider text-primary-foreground transition-all hover:brightness-110 hover:-translate-y-0.5 sm:w-auto">
             Beli Sekarang — Rp 249.000 <ArrowRight size={16} />
           </button>
-          <button className="rounded-lg border border-border bg-transparent px-6 py-3.5 text-sm font-semibold uppercase tracking-wider text-foreground transition-colors hover:bg-secondary">
+          <button className="w-full rounded-lg border border-border bg-transparent px-6 py-3.5 text-sm font-semibold uppercase tracking-wider text-foreground transition-colors hover:bg-secondary sm:w-auto">
             Coba Gratis Dulu
           </button>
         </div>

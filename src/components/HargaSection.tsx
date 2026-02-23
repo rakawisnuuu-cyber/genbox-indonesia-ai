@@ -99,7 +99,7 @@ const HargaSection = () => {
             <div className="animate-float rounded-xl border-2 border-primary bg-card p-8 shadow-[0_0_40px_-5px_hsl(var(--primary)/0.12)]">
               <h3 className="font-satoshi text-xl font-bold text-foreground">BYOK LIFETIME</h3>
               <div className="mt-4 flex items-baseline gap-1">
-                <span className="font-satoshi text-[40px] font-bold text-foreground">Rp 249.000</span>
+                <span className="font-satoshi text-[32px] font-bold text-foreground sm:text-[40px]">Rp 249.000</span>
               </div>
               <p className="mt-1 text-sm font-bold text-primary">sekali bayar • akses selamanya</p>
 
