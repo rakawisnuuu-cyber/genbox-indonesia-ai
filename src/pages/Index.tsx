@@ -6,6 +6,7 @@ import FiturSection from "@/components/FiturSection";
 import CaraKerjaSection from "@/components/CaraKerjaSection";
 import HasilNyataSection from "@/components/HasilNyataSection";
 import HargaSection from "@/components/HargaSection";
+import TestimonialsSection from "@/components/TestimonialsSection";
 import FAQSection from "@/components/FAQSection";
 import FinalCTASection from "@/components/FinalCTASection";
 
@@ -20,6 +21,7 @@ const Index = () => {
       <CaraKerjaSection />
       <HasilNyataSection />
       <HargaSection />
+      <TestimonialsSection />
       <FAQSection />
       <FinalCTASection />
     </div>
