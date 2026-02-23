@@ -7,10 +7,9 @@ import FiturSection from "@/components/FiturSection";
 import CaraKerjaSection from "@/components/CaraKerjaSection";
 import HasilNyataSection from "@/components/HasilNyataSection";
 import HargaSection from "@/components/HargaSection";
-import TestimonialsSection from "@/components/TestimonialsSection";
+import ApiCostSection from "@/components/ApiCostSection";
 import FAQSection from "@/components/FAQSection";
 import FinalCTASection from "@/components/FinalCTASection";
-
 const Index = () => {
   return (
     <div className="relative min-h-screen bg-background">
@@ -23,7 +22,7 @@ const Index = () => {
       <CaraKerjaSection />
       <HasilNyataSection />
       <HargaSection />
-      <TestimonialsSection />
+      <ApiCostSection />
       <FAQSection />
       <FinalCTASection />
     </div>
