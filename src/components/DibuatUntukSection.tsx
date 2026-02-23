@@ -4,18 +4,18 @@ import { ShoppingCart, Smartphone, Store } from "lucide-react";
 const personas = [
   {
     icon: ShoppingCart,
-    title: "Seller TikTok Shop",
-    description: "Generate foto produk UGC tanpa hire model atau fotografer",
+    title: "Seller TikTok Shop & Shopee",
+    description: "Generate foto produk UGC berkualitas tanpa ribet hire model atau fotografer",
   },
   {
     icon: Smartphone,
     title: "Affiliate Marketer",
-    description: "Bikin konten review produk realistis dalam hitungan detik",
+    description: "Bikin konten review produk yang kelihatan real dalam hitungan detik",
   },
   {
     icon: Store,
     title: "UMKM & Brand Lokal",
-    description: "Konten berkualitas studio dengan budget UMKM",
+    description: "Konten berkualitas studio tapi dengan budget UMKM — hemat dan cuan",
   },
 ];
 

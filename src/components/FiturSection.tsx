@@ -10,7 +10,7 @@ const CharacterBuilderMock = () => (
     <div className="mb-4 flex items-center gap-2">
       <div className="h-2 w-2 rounded-full bg-primary" />
       <span className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
-        Character Selection
+        Pilih Karakter
       </span>
     </div>
     <div className="grid grid-cols-3 gap-3">
@@ -95,7 +95,7 @@ const VideoMock = () => (
     <div className="mt-3 flex items-center justify-between text-[10px] text-muted-foreground">
       <span>00:05 / 00:15</span>
       <span className="rounded bg-primary/20 px-1.5 py-0.5 text-primary">
-        Reels Ready
+        Siap Reels
       </span>
     </div>
   </div>
@@ -138,29 +138,29 @@ const PromptMock = () => (
 const features = [
   {
     num: "01",
-    title: "BUAT KARAKTER UNIK",
-    desc: "Pilih dari 10+ karakter Indonesia — hijab casual, urban trendy, ibu muda, dan lainnya. Kustomisasi sesuai target market kamu.",
+    title: "PILIH KARAKTER SESUAI TARGET MARKET",
+    desc: "Ada 10+ karakter Indonesia — hijab casual, urban trendy, ibu muda, dan lainnya. Tinggal pilih yang paling cocok buat audience kamu.",
     visual: <CharacterBuilderMock />,
     reversed: false,
   },
   {
     num: "02",
-    title: "GENERATE GAMBAR UGC REALISTIS",
-    desc: "Upload foto produk, pilih karakter dan pose. AI generate gambar seolah difoto oleh orang sungguhan. Hyper-realistic, shot-on-iPhone quality.",
+    title: "GENERATE GAMBAR UGC YANG CONVERT",
+    desc: "Upload foto produk, pilih karakter dan pose. AI langsung generate gambar UGC yang kelihatan kayak difoto beneran pakai iPhone.",
     visual: <GeneratorMock />,
     reversed: true,
   },
   {
     num: "03",
-    title: "UBAH GAMBAR JADI VIDEO",
-    desc: "Animasikan gambar UGC jadi video 5-15 detik. Siap posting ke TikTok dan Instagram Reels.",
+    title: "JADIKAN VIDEO SIAP POSTING",
+    desc: "Ubah gambar UGC jadi video 5-15 detik. Langsung bisa upload ke TikTok dan Instagram Reels.",
     visual: <VideoMock />,
     reversed: false,
   },
   {
     num: "04",
-    title: "AI PROMPT GENERATOR",
-    desc: "Deskripsikan produk dalam Bahasa Indonesia, AI optimasi prompt untuk hasil terbaik. Tanpa perlu belajar prompt engineering.",
+    title: "AI YANG NGERTI PRODUK KAMU",
+    desc: "Cukup deskripsikan produk pakai Bahasa Indonesia, AI otomatis bikin prompt terbaik. Gak perlu ribet belajar prompt engineering.",
     visual: <PromptMock />,
     reversed: true,
   },

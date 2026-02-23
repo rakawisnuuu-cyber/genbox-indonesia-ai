@@ -24,13 +24,13 @@ const FinalCTASection = () => {
         <h2
           className={`font-satoshi text-2xl font-bold uppercase tracking-[0.03em] text-foreground sm:text-3xl lg:text-[40px] lg:leading-tight ${visible ? "animate-fade-up" : "opacity-0"}`}
         >
-          SIAP BIKIN KONTEN UGC PERTAMAMU?
+          SIAP BIKIN KONTEN UGC YANG BIKIN CUAN?
         </h2>
         <p
           className={`mx-auto mt-5 max-w-[520px] font-body text-base leading-relaxed text-muted-foreground sm:text-lg ${visible ? "animate-fade-up" : "opacity-0"}`}
           style={{ animationDelay: "0.1s" }}
         >
-          Sekali bayar, akses selamanya. Join affiliate marketer Indonesia yang sudah pakai GENBOX.
+          Sekali bayar, akses selamanya. Gabung bareng ribuan affiliate marketer Indonesia yang udah pakai GENBOX.
         </p>
 
         <div
@@ -38,10 +38,10 @@ const FinalCTASection = () => {
           style={{ animationDelay: "0.2s" }}
         >
           <button aria-label="Beli sekarang seharga Rp 249.000" className="animate-cta-glow flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-8 py-4 text-sm font-bold uppercase tracking-wider text-primary-foreground transition-all hover:brightness-110 hover:-translate-y-0.5 sm:w-auto">
-            Beli Sekarang — Rp 249.000 <ArrowRight size={16} aria-hidden="true" />
+            GENERATE SEKARANG — Rp 249.000 <ArrowRight size={16} aria-hidden="true" />
           </button>
           <button aria-label="Coba gratis tanpa kartu kredit" className="w-full rounded-lg border border-border bg-transparent px-6 py-3.5 text-sm font-semibold uppercase tracking-wider text-foreground transition-colors hover:bg-secondary sm:w-auto">
-            Coba Gratis Dulu
+            COBA GRATIS DULU
           </button>
         </div>
 

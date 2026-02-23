@@ -2,24 +2,24 @@ import { useEffect, useRef, useState } from "react";
 import { Check, X, ArrowRight, Lock, Zap, Infinity } from "lucide-react";
 
 const freeFeatures = [
-  { text: "3 kredit gambar", included: true },
+  { text: "3 kredit gambar gratis", included: true },
   { text: "Karakter preset dasar", included: true },
   { text: "Prompt generator", included: true },
-  { text: "Output dengan watermark", included: false },
-  { text: "Tanpa video generation", included: false },
-  { text: "Tanpa n8n blueprint", included: false },
+  { text: "Output masih ada watermark", included: false },
+  { text: "Belum bisa generate video", included: false },
+  { text: "Belum termasuk n8n blueprint", included: false },
 ];
 
 const byokFeatures = [
-  "Unlimited image generation",
-  "Unlimited video generation",
-  "10+ karakter Indonesia + kustomisasi",
-  "Output tanpa watermark",
-  "AI Prompt Generator",
-  "Custom n8n automation blueprint",
-  "Setup guide lengkap",
-  "Lifetime updates",
-  "WhatsApp support group",
+  "Generate gambar unlimited sepuasnya",
+  "Generate video unlimited sepuasnya",
+  "10+ karakter Indonesia + bisa kustomisasi",
+  "Output bersih tanpa watermark",
+  "AI Prompt Generator otomatis",
+  "n8n automation blueprint siap pakai",
+  "Setup guide lengkap step-by-step",
+  "Update fitur selamanya",
+  "Gabung WhatsApp support group",
 ];
 
 const HargaSection = () => {
@@ -58,11 +58,11 @@ const HargaSection = () => {
             className={`flex-1 rounded-xl border border-border bg-card p-8 ${visible ? "animate-fade-up" : "opacity-0"}`}
             style={{ animationDelay: "0.25s" }}
           >
-            <h3 className="font-satoshi text-xl font-bold text-foreground">COBA GRATIS</h3>
+            <h3 className="font-satoshi text-xl font-bold text-foreground">COBA DULU GRATIS</h3>
             <div className="mt-4 flex items-baseline gap-1">
               <span className="font-satoshi text-[32px] font-bold text-foreground">Rp 0</span>
             </div>
-            <p className="mt-1 text-sm text-muted-foreground">untuk memulai</p>
+            <p className="mt-1 text-sm text-muted-foreground">buat nyoba langsung</p>
 
             <ul className="mt-6 space-y-3">
               {freeFeatures.map((f, i) => (
@@ -80,7 +80,7 @@ const HargaSection = () => {
             </ul>
 
             <button className="mt-8 w-full rounded-lg border border-border bg-secondary px-6 py-3 text-sm font-semibold uppercase tracking-wider text-foreground transition-colors hover:bg-secondary/80">
-              Coba Gratis
+              MULAI GRATIS
             </button>
           </div>
 
@@ -92,7 +92,7 @@ const HargaSection = () => {
             {/* Best Value ribbon */}
             <div className="mb-3 flex justify-center">
               <span className="inline-flex items-center rounded-full bg-primary px-4 py-1 text-[11px] font-bold uppercase tracking-[0.12em] text-primary-foreground">
-                Best Value ✦
+                PALING WORTH IT ✦
               </span>
             </div>
 
@@ -114,21 +114,21 @@ const HargaSection = () => {
 
               {/* Bonus box */}
               <div className="mt-6 rounded-lg border border-border bg-secondary p-4">
-                <p className="text-[13px] font-semibold text-foreground">🎁 BONUS: n8n Automation Blueprint (senilai Rp 500.000)</p>
+                <p className="text-[13px] font-semibold text-foreground">🎁 BONUS: n8n Automation Blueprint (worth Rp 500.000)</p>
                 <p className="mt-1 text-[13px] leading-relaxed text-muted-foreground">
-                  Template workflow AI untuk auto-generate konten UGC dari katalog produk
+                  Template workflow AI buat auto-generate konten UGC dari katalog produk kamu
                 </p>
               </div>
 
               <button className="mt-6 flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3.5 text-sm font-bold uppercase tracking-wider text-primary-foreground transition-all hover:brightness-110 hover:-translate-y-0.5">
-                Beli Sekarang <ArrowRight size={16} />
+                GENERATE SEKARANG <ArrowRight size={16} />
               </button>
 
               <p className="mt-3 text-center text-[11px] text-muted-foreground">
                 Pembayaran via QRIS, GoPay, OVO, Dana, Transfer Bank
               </p>
               <p className="mt-1 text-center text-[11px] text-muted-foreground">
-                ⚡ Biaya API kamu sendiri: ~Rp 150-500/gambar
+                ⚡ Biaya API kamu sendiri: cuma ~Rp 150-500/gambar
               </p>
             </div>
           </div>
