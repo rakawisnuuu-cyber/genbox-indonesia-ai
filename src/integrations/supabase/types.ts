@@ -14,7 +14,90 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      generations: {
+        Row: {
+          created_at: string
+          id: string
+          image_url: string | null
+          model: string | null
+          prompt: string | null
+          status: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          model?: string | null
+          prompt?: string | null
+          status?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          model?: string | null
+          prompt?: string | null
+          status?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          full_name: string | null
+          id: string
+          tier: string
+          updated_at: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          full_name?: string | null
+          id: string
+          tier?: string
+          updated_at?: string
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          full_name?: string | null
+          id?: string
+          tier?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      user_credits: {
+        Row: {
+          created_at: string
+          id: string
+          image_credits: number
+          updated_at: string
+          user_id: string
+          video_credits: number
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          image_credits?: number
+          updated_at?: string
+          user_id: string
+          video_credits?: number
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          image_credits?: number
+          updated_at?: string
+          user_id?: string
+          video_credits?: number
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
