@@ -39,6 +39,11 @@ const Login = () => {
           <Button type="submit" className="w-full" disabled={loading}>
             {loading ? "Loading..." : "Login"}
           </Button>
+          <div className="text-right">
+            <Link to="/forgot-password" className="text-xs text-muted-foreground hover:text-primary hover:underline">
+              Lupa password?
+            </Link>
+          </div>
         </form>
         <p className="text-center text-sm text-muted-foreground">
           Belum punya akun?{" "}
