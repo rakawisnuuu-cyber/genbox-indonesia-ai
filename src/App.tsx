@@ -11,6 +11,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import DashboardLayout from "@/components/DashboardLayout";
 import DashboardHome from "./pages/DashboardHome";
+import Characters from "./pages/Characters";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import NotFound from "./pages/NotFound";
@@ -45,7 +46,8 @@ const App = () => (
             <Route element={<ProtectedRoute><DashboardLayout /></ProtectedRoute>}>
               <Route path="/dashboard" element={<DashboardHome />} />
               <Route path="/generate" element={<PlaceholderPage title="Buat Gambar" />} />
-              <Route path="/characters" element={<PlaceholderPage title="Karakter" />} />
+              <Route path="/characters" element={<Characters />} />
+              <Route path="/characters/create" element={<PlaceholderPage title="Buat Karakter" />} />
               <Route path="/gallery" element={<PlaceholderPage title="Gallery" />} />
               <Route path="/prompt" element={<PlaceholderPage title="Prompt Generator" />} />
               <Route path="/blueprint" element={<PlaceholderPage title="n8n Blueprint" />} />
