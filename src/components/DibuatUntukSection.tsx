@@ -1,18 +1,19 @@
 import { useEffect, useRef, useState } from "react";
+import { ShoppingCart, Smartphone, Store } from "lucide-react";
 
 const personas = [
   {
-    icon: "🛒",
+    icon: ShoppingCart,
     title: "Seller TikTok Shop",
     description: "Generate foto produk UGC tanpa hire model atau fotografer",
   },
   {
-    icon: "📱",
+    icon: Smartphone,
     title: "Affiliate Marketer",
     description: "Bikin konten review produk realistis dalam hitungan detik",
   },
   {
-    icon: "🏪",
+    icon: Store,
     title: "UMKM & Brand Lokal",
     description: "Konten berkualitas studio dengan budget UMKM",
   },
@@ -64,8 +65,8 @@ const DibuatUntukSection = () => {
               }`}
               style={{ animationDelay: `${0.3 + i * 0.15}s` }}
             >
-              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-primary/20 text-xl">
-                {persona.icon}
+              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-primary/20">
+                <persona.icon size={20} className="text-primary" />
               </div>
               <h3 className="font-satoshi text-lg font-semibold text-foreground">
                 {persona.title}
