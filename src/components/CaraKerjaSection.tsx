@@ -86,7 +86,7 @@ const CaraKerjaSection = () => {
   return (
     <section
       ref={ref}
-      className="relative w-full px-4 py-20 sm:py-28"
+      className="relative w-full px-4 py-12 sm:py-16"
       style={{ background: "linear-gradient(180deg, hsl(0 0% 4%) 0%, hsl(0 0% 5%) 100%)" }}
     >
       <div className="container mx-auto max-w-[1200px]">

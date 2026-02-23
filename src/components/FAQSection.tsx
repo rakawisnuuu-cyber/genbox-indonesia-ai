@@ -47,7 +47,7 @@ const FAQSection = () => {
   }, []);
 
   return (
-    <section ref={ref} id="faq" className="relative w-full overflow-hidden px-4 py-20 sm:py-28">
+    <section ref={ref} id="faq" className="relative w-full overflow-hidden px-4 py-12 sm:py-16">
       {/* Decorative glow */}
       <div className="pointer-events-none absolute -right-32 top-1/2 h-[350px] w-[350px] -translate-y-1/2 rounded-full opacity-[0.03]" style={{ background: "radial-gradient(circle, hsl(73 100% 50%) 0%, transparent 70%)" }} aria-hidden="true" />
       <div className="container mx-auto max-w-[700px]">
