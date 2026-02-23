@@ -6,6 +6,8 @@ import FiturSection from "@/components/FiturSection";
 import CaraKerjaSection from "@/components/CaraKerjaSection";
 import HasilNyataSection from "@/components/HasilNyataSection";
 import HargaSection from "@/components/HargaSection";
+import FAQSection from "@/components/FAQSection";
+import FinalCTASection from "@/components/FinalCTASection";
 
 const Index = () => {
   return (
@@ -18,6 +20,8 @@ const Index = () => {
       <CaraKerjaSection />
       <HasilNyataSection />
       <HargaSection />
+      <FAQSection />
+      <FinalCTASection />
     </div>
   );
 };
