@@ -12,6 +12,7 @@ import Register from "./pages/Register";
 import DashboardLayout from "@/components/DashboardLayout";
 import DashboardHome from "./pages/DashboardHome";
 import Characters from "./pages/Characters";
+import CreateCharacter from "./pages/CreateCharacter";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import NotFound from "./pages/NotFound";
@@ -47,7 +48,7 @@ const App = () => (
               <Route path="/dashboard" element={<DashboardHome />} />
               <Route path="/generate" element={<PlaceholderPage title="Buat Gambar" />} />
               <Route path="/characters" element={<Characters />} />
-              <Route path="/characters/create" element={<PlaceholderPage title="Buat Karakter" />} />
+              <Route path="/characters/create" element={<CreateCharacter />} />
               <Route path="/gallery" element={<PlaceholderPage title="Gallery" />} />
               <Route path="/prompt" element={<PlaceholderPage title="Prompt Generator" />} />
               <Route path="/blueprint" element={<PlaceholderPage title="n8n Blueprint" />} />
