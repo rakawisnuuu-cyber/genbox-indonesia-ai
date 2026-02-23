@@ -88,8 +88,7 @@ const HeroSection = () => {
           className="animate-fade-up mt-6 max-w-[600px] font-body text-base leading-relaxed text-muted-foreground sm:text-lg"
           style={{ animationDelay: "0.3s" }}
         >
-          Upload foto produk. Pilih karakter Indonesia. Generate gambar UGC berkualitas tinggi untuk
-          TikTok &amp; Instagram — tanpa model, tanpa studio.
+          Upload foto produk. Pilih karakter Indonesia. Generate gambar UGC berkualitas tinggi untuk TikTok & Instagram — tanpa model, tanpa studio.
         </p>
 
         {/* Buttons */}
