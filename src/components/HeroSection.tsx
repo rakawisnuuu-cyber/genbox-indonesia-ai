@@ -1,3 +1,5 @@
+import { useEffect, useRef, useState } from "react";
+
 const placeholderGradients = [
   "from-purple-600 to-pink-500",
   "from-blue-500 to-cyan-400",
@@ -7,6 +9,14 @@ const placeholderGradients = [
 ];
 
 const HeroSection = () => {
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const handler = () => setScrollY(window.scrollY);
+    window.addEventListener("scroll", handler, { passive: true });
+    return () => window.removeEventListener("scroll", handler);
+  }, []);
+
   return (
     <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-4 pt-16">
       {/* Background */}
@@ -16,7 +26,10 @@ const HeroSection = () => {
           background: "radial-gradient(ellipse at center, hsl(0 0% 4%) 0%, hsl(0 0% 2%) 100%)",
         }}
       />
-      <div className="grid-pattern absolute inset-0" />
+      <div
+        className="grid-pattern absolute inset-0 will-change-transform"
+        style={{ transform: `translateY(${scrollY * 0.15}px)` }}
+      />
 
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center text-center">
@@ -51,13 +64,13 @@ const HeroSection = () => {
           style={{ animationDelay: "0.4s" }}
         >
           <a
-            href="#"
+            href="#harga"
             className="flex h-12 w-full items-center justify-center rounded-lg bg-primary px-8 text-sm font-bold uppercase tracking-wider text-primary-foreground transition-all duration-200 hover:-translate-y-px hover:bg-lime-hover sm:w-auto"
           >
             MULAI GRATIS →
           </a>
           <a
-            href="#"
+            href="#cara-kerja"
             className="flex h-12 w-full items-center justify-center rounded-lg border border-foreground/20 bg-transparent px-8 text-sm font-bold uppercase tracking-wider text-foreground transition-all duration-200 hover:bg-foreground/5 sm:w-auto"
           >
             LIHAT DEMO ▶
