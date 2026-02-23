@@ -6,6 +6,7 @@ interface Profile {
   full_name: string | null;
   avatar_url: string | null;
   tier: string;
+  created_at: string;
 }
 
 interface Credits {
@@ -35,7 +36,7 @@ export function useDashboardData() {
       setLoading(true);
 
       const [profileRes, creditsRes, genRes, countRes] = await Promise.all([
-        supabase.from("profiles").select("full_name, avatar_url, tier").eq("id", user.id).single(),
+        supabase.from("profiles").select("full_name, avatar_url, tier, created_at").eq("id", user.id).single(),
         supabase.from("user_credits").select("image_credits, video_credits").eq("user_id", user.id).single(),
         supabase.from("generations").select("id, image_url, prompt, created_at").eq("user_id", user.id).order("created_at", { ascending: false }).limit(4),
         supabase.from("generations").select("id", { count: "exact", head: true }).eq("user_id", user.id),
