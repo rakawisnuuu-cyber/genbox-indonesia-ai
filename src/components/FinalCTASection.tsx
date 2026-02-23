@@ -17,9 +17,12 @@ const FinalCTASection = () => {
   return (
     <section
       ref={ref}
-      className="relative w-full px-4 py-24"
-      style={{ background: "radial-gradient(ellipse at center, hsla(73,100%,50%,0.03) 0%, transparent 70%)" }}
+      className="relative w-full overflow-hidden px-4 py-24 sm:py-32"
+      style={{ background: "radial-gradient(ellipse at center, hsla(73,100%,50%,0.04) 0%, transparent 70%)" }}
     >
+      {/* Decorative glow */}
+      <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[500px] w-[500px] rounded-full opacity-[0.03]" style={{ background: "radial-gradient(circle, hsl(73 100% 50%) 0%, transparent 70%)" }} aria-hidden="true" />
+
       <div className="container mx-auto max-w-[700px] text-center">
         <h2
           className={`font-satoshi text-2xl font-bold uppercase tracking-[0.03em] text-foreground sm:text-3xl lg:text-[40px] lg:leading-tight ${visible ? "animate-fade-up" : "opacity-0"}`}
@@ -49,7 +52,7 @@ const FinalCTASection = () => {
           className={`mt-6 text-xs text-muted-foreground ${visible ? "animate-fade-up" : "opacity-0"}`}
           style={{ animationDelay: "0.3s" }}
         >
-          Gratis 3 kredit • Tanpa kartu kredit • Lifetime access
+          Gratis 3 kredit • Tanpa kartu kredit • Akses selamanya
         </p>
       </div>
     </section>
