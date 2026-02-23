@@ -67,6 +67,11 @@
   body {
     @apply bg-background text-foreground;
     font-family: 'DM Sans', sans-serif;
+    cursor: crosshair;
+  }
+
+  a, button, [role="button"], input, textarea, select, label, [tabindex] {
+    cursor: crosshair;
   }
 
   h1, h2, h3, h4, h5, h6 {
