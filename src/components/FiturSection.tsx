@@ -139,7 +139,7 @@ const features = [
   {
     num: "01",
     title: "PILIH KARAKTER SESUAI TARGET MARKET",
-    desc: "Ada 10+ karakter Indonesia — hijab casual, urban trendy, ibu muda, dan lainnya. Tinggal pilih yang paling cocok buat audience kamu.",
+    desc: "Ada 10+ karakter — hijab casual, urban trendy, ibu muda, dan lainnya. Tinggal pilih yang paling cocok buat audience kamu.",
     visual: <CharacterBuilderMock />,
     reversed: false,
   },

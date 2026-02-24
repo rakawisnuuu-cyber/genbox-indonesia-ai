@@ -39,11 +39,11 @@ export const HAIR_STYLES_MALE = [
 export const HAIR_COLORS = ["Hitam", "Coklat Tua", "Coklat Madu", "Highlighted"];
 
 export const EXPRESSIONS = [
-  { value: "hangat_ramah", label: "😊 Hangat & Ramah" },
-  { value: "percaya_diri", label: "😎 Percaya Diri" },
-  { value: "kalem_pro", label: "🧘 Kalem Profesional" },
-  { value: "energik_ceria", label: "⚡ Energik Ceria" },
-  { value: "lembut_natural", label: "🌿 Lembut Natural" },
+  { value: "hangat_ramah", label: "Hangat & Ramah" },
+  { value: "percaya_diri", label: "Percaya Diri" },
+  { value: "kalem_pro", label: "Kalem Profesional" },
+  { value: "energik_ceria", label: "Energik Ceria" },
+  { value: "lembut_natural", label: "Lembut Natural" },
 ];
 
 export const OUTFIT_STYLES = [
@@ -74,10 +74,10 @@ export const STYLE_GRADIENTS: Record<string, string> = {
 };
 
 export const SHOT_TYPES = [
-  { emoji: "📸", label: "Hero" },
-  { emoji: "🔄", label: "Profile" },
-  { emoji: "🗣️", label: "Talking" },
-  { emoji: "🧍", label: "Full Body" },
-  { emoji: "🔍", label: "Detail" },
-  { emoji: "🤲", label: "Product" },
+  { icon: "Camera", label: "Hero" },
+  { icon: "RotateCcw", label: "Profile" },
+  { icon: "Mic", label: "Talking" },
+  { icon: "PersonStanding", label: "Full Body" },
+  { icon: "Search", label: "Detail" },
+  { icon: "Hand", label: "Product" },
 ];

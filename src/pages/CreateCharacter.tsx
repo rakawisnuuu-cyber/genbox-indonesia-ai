@@ -1,10 +1,11 @@
-import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, Link, useSearchParams } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { useDashboardData } from "@/hooks/useDashboardData";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import CharacterPreview from "@/components/characters/CharacterPreview";
+import { Camera, RotateCcw, Mic, PersonStanding, Search, Hand } from "lucide-react";
 import {
   AGE_RANGES,
   SKIN_TONES,
@@ -19,6 +20,21 @@ import {
   SHOT_TYPES,
 } from "@/data/characterFormOptions";
 
+const SHOT_ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
+  Camera,
+  RotateCcw,
+  Mic,
+  PersonStanding,
+  Search,
+  Hand,
+};
+
+const ShotIcon = ({ name }: { name: string }) => {
+  const Icon = SHOT_ICON_MAP[name];
+  if (!Icon) return null;
+  return <Icon className="w-4 h-4 text-[#666]" />;
+};
+
 const inputClass =
   "w-full bg-[#1A1A1A] border border-[#2A2A2A] rounded-lg text-white px-4 py-3 text-sm focus:border-primary focus:ring-1 focus:ring-primary/30 outline-none transition placeholder:text-[#555]";
 const selectClass = inputClass + " appearance-none";
@@ -29,8 +45,11 @@ const CreateCharacter = () => {
   const { profile, credits } = useDashboardData();
   const navigate = useNavigate();
   const { toast } = useToast();
+  const [searchParams] = useSearchParams();
+  const editId = searchParams.get("edit");
 
   const [saving, setSaving] = useState(false);
+  const [loading, setLoading] = useState(!!editId);
   const [form, setForm] = useState({
     name: "",
     gender: "" as "" | "female" | "male",
@@ -49,6 +68,43 @@ const CreateCharacter = () => {
   const set = (field: string, value: string) =>
     setForm((prev) => ({ ...prev, [field]: value }));
 
+  // Fetch character data for edit mode
+  useEffect(() => {
+    if (!editId || !user) return;
+    const fetchCharacter = async () => {
+      const { data, error } = await supabase
+        .from("characters")
+        .select("*")
+        .eq("id", editId)
+        .eq("user_id", user.id)
+        .single();
+
+      if (error || !data) {
+        toast({ title: "Karakter tidak ditemukan", variant: "destructive" });
+        navigate("/characters");
+        return;
+      }
+
+      const config = (data.config as Record<string, string>) || {};
+      setForm({
+        name: data.name || "",
+        gender: (config.gender || data.gender || "") as "" | "female" | "male",
+        ageRange: config.age_range || data.age_range || "",
+        skinTone: config.skin_tone || "sawo_matang",
+        faceShape: config.face_shape || "",
+        eyeColor: config.eye_color || "",
+        hairStyle: config.hair_style || "",
+        hairColor: config.hair_color || "",
+        expression: config.expression || "",
+        outfit: config.outfit || "",
+        skinCondition: config.skin_condition || "",
+        customNotes: config.custom_notes || "",
+      });
+      setLoading(false);
+    };
+    fetchCharacter();
+  }, [editId, user]);
+
   const isHijab = form.hairStyle.toLowerCase().includes("hijab");
   const hairOptions = form.gender === "male" ? HAIR_STYLES_MALE : HAIR_STYLES_FEMALE;
   const tier = profile?.tier || "free";
@@ -59,8 +115,7 @@ const CreateCharacter = () => {
     if (!canSubmit || !user) return;
     setSaving(true);
 
-    const { error } = await supabase.from("characters").insert({
-      user_id: user.id,
+    const payload = {
       name: form.name.trim(),
       gender: form.gender,
       age_range: form.ageRange,
@@ -84,8 +139,22 @@ const CreateCharacter = () => {
         skin_condition: form.skinCondition,
         custom_notes: form.customNotes,
       },
-      is_preset: false,
-    });
+    };
+
+    let error;
+    if (editId) {
+      ({ error } = await supabase
+        .from("characters")
+        .update(payload)
+        .eq("id", editId)
+        .eq("user_id", user.id));
+    } else {
+      ({ error } = await supabase.from("characters").insert({
+        ...payload,
+        user_id: user.id,
+        is_preset: false,
+      }));
+    }
 
     setSaving(false);
 
@@ -94,19 +163,27 @@ const CreateCharacter = () => {
       return;
     }
 
-    toast({ title: "✅ Karakter berhasil disimpan!" });
+    toast({ title: editId ? "Karakter berhasil diperbarui!" : "Karakter berhasil disimpan!" });
     navigate("/characters");
   };
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-[40vh]">
+        <div className="text-[#666] text-sm">Memuat karakter...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col lg:flex-row gap-6">
       {/* LEFT — Form */}
       <div className="flex-[3] min-w-0">
         <h1 className="text-xl font-bold text-white uppercase tracking-wider font-satoshi">
-          BUAT KARAKTER BARU
+          {editId ? "EDIT KARAKTER" : "BUAT KARAKTER BARU"}
         </h1>
         <p className="text-sm text-[#888] mt-1">
-          Desain identitas karakter untuk konten UGC kamu
+          {editId ? "Perbarui identitas karakter kamu" : "Desain identitas karakter untuk konten UGC kamu"}
         </p>
 
         {/* DASAR */}
@@ -136,7 +213,7 @@ const CreateCharacter = () => {
                     : "bg-[#1A1A1A] text-[#888] border-[#2A2A2A] hover:border-[#555]"
                 }`}
               >
-                {g === "female" ? "👩 Wanita" : "👨 Pria"}
+                {g === "female" ? "Wanita" : "Pria"}
               </button>
             ))}
           </div>
@@ -284,7 +361,7 @@ const CreateCharacter = () => {
 
         {/* COST INFO */}
         <div className="bg-[#1A1A1A] border border-[#2A2A2A] rounded-xl p-4 mt-6">
-          <p className="text-sm font-semibold text-white">📸 6-Shot Character Pack</p>
+          <p className="text-sm font-semibold text-white">6-Shot Character Pack</p>
           <p className="text-xs text-[#888] mt-1">
             Sistem akan generate 6 foto referensi: Hero Portrait, 3/4 Profile,
             Talking to Camera, Full Body, Skin Detail, dan Product Interaction.
@@ -307,7 +384,7 @@ const CreateCharacter = () => {
                 key={shot.label}
                 className="flex flex-col items-center gap-0.5 min-w-[48px]"
               >
-                <span className="text-base">{shot.emoji}</span>
+                <ShotIcon name={shot.icon} />
                 <span className="text-[10px] text-[#666] whitespace-nowrap">{shot.label}</span>
               </div>
             ))}
@@ -329,7 +406,7 @@ const CreateCharacter = () => {
               !canSubmit || saving ? "opacity-50 cursor-not-allowed" : "hover:brightness-110"
             }`}
           >
-            {saving ? "Menyimpan..." : "🎨 GENERATE KARAKTER"}
+            {saving ? "Menyimpan..." : editId ? "SIMPAN PERUBAHAN" : "GENERATE KARAKTER"}
           </button>
           <Link
             to="/characters"

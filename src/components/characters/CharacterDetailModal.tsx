@@ -1,6 +1,6 @@
 import { useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { X, UserCircle, Camera, RotateCcw, Mic, PersonStanding, Search, HandMetal, Trash2 } from "lucide-react";
+import { X, UserCircle, Camera, RotateCcw, Mic, PersonStanding, Search, Hand, Trash2 } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { SKIN_TONES } from "@/data/characterFormOptions";
 import type { CharacterConfig } from "@/data/presetCharacters";
@@ -26,12 +26,12 @@ interface Props {
 }
 
 const SHOT_PLACEHOLDERS = [
-  { icon: Camera, label: "Hero Portrait", wide: false },
-  { icon: RotateCcw, label: "3/4 Profile", wide: false },
-  { icon: Mic, label: "Talking", wide: false },
-  { icon: Search, label: "Skin Detail", wide: false },
-  { icon: HandMetal, label: "Product", wide: false },
-  { icon: PersonStanding, label: "Full Body", wide: true },
+  { icon: Camera, label: "Hero Portrait" },
+  { icon: RotateCcw, label: "3/4 Profile" },
+  { icon: Mic, label: "Talking" },
+  { icon: PersonStanding, label: "Full Body" },
+  { icon: Search, label: "Skin Detail" },
+  { icon: Hand, label: "Product" },
 ];
 
 const CharacterDetailModal = ({ character, onClose, onUse, onDelete }: Props) => {
@@ -62,11 +62,11 @@ const CharacterDetailModal = ({ character, onClose, onUse, onDelete }: Props) =>
     : null;
 
   const expressionMap: Record<string, string> = {
-    hangat_ramah: "😊 Hangat & Ramah",
-    percaya_diri: "😎 Percaya Diri",
-    kalem_pro: "🧘 Kalem Profesional",
-    energik_ceria: "⚡ Energik Ceria",
-    lembut_natural: "🌿 Lembut Natural",
+    hangat_ramah: "Hangat & Ramah",
+    percaya_diri: "Percaya Diri",
+    kalem_pro: "Kalem Profesional",
+    energik_ceria: "Energik Ceria",
+    lembut_natural: "Lembut Natural",
   };
 
   const infoRows = [
@@ -134,29 +134,18 @@ const CharacterDetailModal = ({ character, onClose, onUse, onDelete }: Props) =>
               6-SHOT PACK
             </p>
             <div className="grid grid-cols-3 gap-2">
-              {/* Hero large left */}
-              <div className="row-span-2 bg-[#1A1A1A] rounded-lg aspect-[3/4] flex flex-col items-center justify-center gap-1">
-                <Camera className="w-6 h-6 text-[#444]" />
-                <span className="text-[#555] text-[10px] text-center px-1">Hero Portrait</span>
-              </div>
-              {/* 4 smaller right */}
-              {SHOT_PLACEHOLDERS.slice(1, 5).map((shot) => {
+              {SHOT_PLACEHOLDERS.map((shot) => {
                 const Icon = shot.icon;
                 return (
                   <div
                     key={shot.label}
                     className="bg-[#1A1A1A] rounded-lg aspect-square flex flex-col items-center justify-center gap-1"
                   >
-                    <Icon className="w-4 h-4 text-[#444]" />
+                    <Icon className="w-5 h-5 text-[#444]" />
                     <span className="text-[#555] text-[10px] text-center px-1">{shot.label}</span>
                   </div>
                 );
               })}
-            </div>
-            {/* Full body wide */}
-            <div className="mt-2 bg-[#1A1A1A] rounded-lg aspect-[16/5] flex flex-col items-center justify-center gap-1">
-              <PersonStanding className="w-5 h-5 text-[#444]" />
-              <span className="text-[#555] text-[10px]">Full Body</span>
             </div>
           </div>
 

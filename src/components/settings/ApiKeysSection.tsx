@@ -116,7 +116,7 @@ const ApiKeysSection = () => {
 
     setKieKey((prev) => ({ ...prev, saved: true }));
     setGeminiKey((prev) => ({ ...prev, saved: true }));
-    toast({ title: "✅ API key berhasil disimpan!" });
+    toast({ title: "API key berhasil disimpan!" });
     setSaving(false);
   };
 
