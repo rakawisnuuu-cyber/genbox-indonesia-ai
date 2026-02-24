@@ -55,7 +55,7 @@ const Blueprint = () => {
   const isLocked = tier === "free";
 
   const handleDownload = () => {
-    toast({ title: "Akan tersedia setelah launch! 🚀" });
+    toast({ title: "Akan tersedia setelah launch!" });
   };
 
   return (
