@@ -11,13 +11,20 @@ AI-powered UGC (User Generated Content) generator app. Allows users to create re
 
 ## Architecture
 
-This is a **frontend-only** app — no custom backend server. All data operations go through the Supabase client directly from the browser using Row Level Security (RLS).
+Frontend uses Supabase client directly for auth and data (RLS). Backend utilities in `src/lib/` support server-side operations.
 
+### Frontend
 - `src/integrations/supabase/client.ts` — Supabase client (reads `VITE_SUPABASE_URL` + `VITE_SUPABASE_PUBLISHABLE_KEY`)
 - `src/integrations/supabase/types.ts` — Auto-generated Supabase DB types
 - `src/integrations/lovable/index.ts` — OAuth wrapper using Supabase's built-in `signInWithOAuth`
 - `src/contexts/AuthContext.tsx` — Auth state provider
 - `src/hooks/useDashboardData.ts` — Fetches profile, credits, and generations for the dashboard
+
+### Backend Utilities (src/lib/)
+- `src/lib/encryption.ts` — AES-256-GCM encryption for BYOK API keys (uses `ENCRYPTION_SECRET`)
+- `src/lib/rate-limit.ts` — In-memory rate limiter (10 req/60s per user, with cleanup)
+- `src/lib/supabase/server.ts` — Server-side Supabase client (authenticated + admin/service-role)
+- `src/lib/constants.ts` — App constants, KIE AI model configs, shot-model mapping
 
 ## Database (Supabase)
 

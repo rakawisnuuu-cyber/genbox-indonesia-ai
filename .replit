@@ -38,3 +38,8 @@ outputType = "webview"
 [[ports]]
 localPort = 5000
 externalPort = 80
+
+[userenv]
+
+[userenv.shared]
+PLATFORM_KIE_AI_KEY = "abc2d4c23d18ca85d928d992f004bbac"

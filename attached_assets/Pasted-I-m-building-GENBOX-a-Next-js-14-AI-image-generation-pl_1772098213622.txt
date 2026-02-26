@@ -1,0 +1,54 @@
+I'm building GENBOX, a Next.js 14 AI image generation platform. 
+I need you to create the core utility files for the backend.
+The project already has Supabase Auth, Tailwind, and shadcn/ui set up.
+
+Create these files:
+
+=== FILE 1: src/lib/encryption.ts ===
+AES-256-GCM encryption for storing BYOK API keys securely.
+- encrypt(text: string): string — returns "iv:authTag:encrypted" format
+- decrypt(encryptedText: string): string — reverses the process
+- Uses process.env.ENCRYPTION_SECRET (32-byte hex string)
+- Import crypto from Node.js built-in
+
+=== FILE 2: src/lib/rate-limit.ts ===
+In-memory rate limiter for API routes.
+- checkRateLimit(userId: string, limit?: number, windowMs?: number): boolean
+- Default: 10 requests per 60 seconds per user
+- Uses Map<string, { count: number; resetAt: number }>
+- Cleanup interval every 5 minutes to prevent memory leak
+- Export a helper: withRateLimit(userId: string) that throws an error 
+  with Bahasa Indonesia message if rate exceeded:
+  "Terlalu banyak permintaan. Coba lagi dalam 1 menit."
+
+=== FILE 3: src/lib/supabase/server.ts ===
+Server-side Supabase client for use in API routes.
+- createServerSupabaseClient(req): creates authenticated client from request cookies
+- createAdminSupabaseClient(): creates service role client (for webhooks)
+- Uses @supabase/supabase-js
+
+=== FILE 4: src/lib/constants.ts ===
+Export constants:
+- GENERATION_POLL_INTERVAL = 3000 (ms)
+- MAX_POLL_ATTEMPTS = 60 (3 minutes max)
+- FREE_TRIAL_CREDITS = 3
+- BYOK_PRICE_IDR = 249000
+- SUPPORTED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/webp']
+- MAX_IMAGE_SIZE = 10 * 1024 * 1024 (10MB)
+- KIE_AI_MODELS with their credit costs:
+  {
+    NANO_BANANA_PRO: { name: 'Nano Banana Pro', credits: 8, costIdr: 640 },
+    NANO_BANANA: { name: 'Nano Banana', credits: 4, costIdr: 320 },
+    SEEDREAM: { name: 'Seedream 4.0', credits: 3.5, costIdr: 280 }
+  }
+- SHOT_MODEL_MAP (which model for each of the 6 character shots):
+  {
+    hero_portrait: 'NANO_BANANA_PRO',
+    profile_3_4: 'NANO_BANANA',
+    talking: 'NANO_BANANA',
+    full_body: 'SEEDREAM',
+    skin_detail: 'NANO_BANANA_PRO',
+    product_interaction: 'NANO_BANANA'
+  }
+
+TypeScript strict. No 'any'. Clean, production-quality code.
