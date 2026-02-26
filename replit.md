@@ -26,6 +26,14 @@ Frontend uses Supabase client directly for auth and data (RLS). Backend utilitie
 - `src/lib/supabase/server.ts` — Server-side Supabase client (authenticated + admin/service-role)
 - `src/lib/constants.ts` — App constants, KIE AI model configs, shot-model mapping
 
+### AI Services (src/lib/ai/)
+- `src/lib/ai/gemini.ts` — Gemini 2.0 Flash integration (product analysis, identity prompts, UGC prompts)
+- `src/lib/ai/kie-ai.ts` — Kie AI image generation (job creation, status polling, image download) with retry/rate-limit handling
+- `src/lib/ai/prompt-templates.ts` — GENBOX Prompt Formula: realism, camera specs, lighting, skin detail, quality, negative prompt, shot configs, and `assembleCharacterPrompt()` combiner
+
+### Types (src/types/)
+- `src/types/ai.ts` — ProductAnalysis, CharacterConfig, SceneConfig, ShotType, ShotConfig, CameraSpec, KieAi types
+
 ## Database (Supabase)
 
 Tables (all with RLS enabled, users can only access their own data):

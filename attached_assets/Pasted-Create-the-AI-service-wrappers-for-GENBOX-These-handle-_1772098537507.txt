@@ -1,0 +1,116 @@
+Create the AI service wrappers for GENBOX. These handle all 
+communication with external AI APIs. Server-side only.
+
+=== FILE 1: src/lib/ai/gemini.ts ===
+
+Functions:
+
+1. analyzeProduct(imageUrl: string, apiKey: string): Promise<ProductAnalysis>
+   - Calls Gemini 2.0 Flash Vision API
+   - Sends the product image URL
+   - Asks Gemini to analyze and return JSON:
+     {
+       productName: string,
+       category: string (e.g., "skincare", "fashion", "food"),
+       colors: string[] (dominant colors),
+       features: string[] (key product features),
+       targetAudience: string,
+       suggestedScenes: string[] (3-5 scene suggestions)
+     }
+   - System prompt: "You are a product analyst for UGC content creation. 
+     Analyze this product image and return structured data in JSON format.
+     Focus on details useful for creating realistic marketing photos."
+   - Parse response, handle errors gracefully
+   - Return typed ProductAnalysis object
+
+2. buildIdentityPrompt(config: CharacterConfig, apiKey: string): Promise<string>
+   - Takes character config (gender, age, skin_tone, etc.)
+   - Calls Gemini to assemble a polished identity description paragraph
+   - The paragraph should read naturally in English (for Kie AI)
+   - Map Indonesian config values to English prompt fragments:
+     * skin_tone mappings (kuning_langsat → "light warm golden-tan 
+       Southeast Asian skin", etc.)
+     * hair_style mappings (hijab_modern → "modern hijab neatly wrapped 
+       with soft natural draping", etc.)
+     * expression mappings (hangat_ramah → "warm genuine smile, friendly 
+       approachable eyes", etc.)
+   - Return the assembled identity paragraph
+
+3. buildUGCPrompt(params: {
+     productAnalysis: ProductAnalysis,
+     character: CharacterConfig,
+     identityPrompt: string,
+     scene: SceneConfig,
+     apiKey: string
+   }): Promise<string>
+   - Combines product info + character identity + scene settings
+   - Calls Gemini to craft a detailed UGC-style prompt in English
+   - Style: hyper-realistic, candid, UGC aesthetic, NOT stock photo
+   - Include product naturally in the scene
+   - Return the final prompt string
+
+=== FILE 2: src/lib/ai/kie-ai.ts ===
+
+Functions:
+
+1. createImageJob(params: {
+     prompt: string,
+     model: string,
+     referenceImageUrl?: string,
+     negativePrompt?: string,
+     apiKey: string
+   }): Promise<{ jobId: string }>
+   - POST to Kie AI generation endpoint
+   - Pass model name, prompt, optional reference image
+   - Return the job ID for polling
+
+2. checkJobStatus(jobId: string, apiKey: string): Promise<{
+     status: 'pending' | 'processing' | 'completed' | 'failed',
+     resultUrl?: string,
+     error?: string
+   }>
+   - GET job status from Kie AI
+   - Return current status + result URL when completed
+
+3. downloadImage(imageUrl: string): Promise<Buffer>
+   - Download the generated image as a buffer
+   - Used before applying watermark or saving to storage
+
+Note: Check Kie AI's actual API documentation for correct endpoints,
+authentication headers, and request/response formats. The wrapper 
+should handle rate limits and retry logic gracefully.
+
+=== FILE 3: src/lib/ai/prompt-templates.ts ===
+
+Export the GENBOX Prompt Formula blocks as constants:
+
+REALISM_BASE: "Ultra-realistic photographic portrait, commercial 
+  photography, real-world studio photography, cinematic realism, 
+  lifelike details, true-to-life textures."
+
+CAMERA_SPECS: Record of 6 shot types, each with specific lens/aperture
+
+LIGHTING_BLOCK: "Professional studio lighting setup: soft key light 
+  from 45 degrees creating gentle modeling on the face, fill light 
+  reducing harsh shadows, subtle rim light separating subject from 
+  background. Warm neutral tones that complement Southeast Asian skin."
+
+SKIN_BLOCK_GENBOX: The adapted Indonesian skin block (NOT raw AVB).
+  Soft pores, natural makeup, "rapi tapi natural" philosophy.
+
+QUALITY_BLOCK: "8K resolution, ultra-high detail, photographic realism..."
+
+NEGATIVE_BLOCK: "No cartoon, no anime, no CGI, no 3D render..."
+
+SHOT_CONFIGS: Record of 6 shot types with:
+  - framing, gaze, expression, background, specific instructions
+  
+Function: assembleCharacterPrompt(params: {
+  identityPrompt: string,
+  shotType: ShotType,
+}): string
+  - Combines all blocks in correct order:
+    REALISM_BASE + CAMERA_SPEC + identityPrompt + SHOT_SPECIFIC 
+    + LIGHTING + SKIN_BLOCK + QUALITY + NEGATIVE
+
+TypeScript strict. All types exported from src/types/.
