@@ -9,6 +9,9 @@ export default defineConfig(({ mode }) => ({
     hmr: {
       overlay: false,
     },
+    allowedHosts: [
+      "d200c54d-02b2-42a4-91d9-7bbb604ff954-00-1nso2sqzhpzxb.riker.replit.dev",
+    ],
   },
   plugins: [react()],
   resolve: {
