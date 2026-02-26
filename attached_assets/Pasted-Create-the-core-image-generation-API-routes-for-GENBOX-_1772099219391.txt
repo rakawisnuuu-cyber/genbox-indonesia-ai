@@ -1,0 +1,130 @@
+Create the core image generation API routes for GENBOX.
+These are the most critical routes in the entire application.
+
+=== FILE 1: src/app/api/generate/image/route.ts ===
+
+POST handler — Create a new UGC image generation:
+
+1. Authenticate user (verify Supabase JWT from cookies)
+2. Check rate limit (10/min per user)
+3. Parse request body:
+   {
+     productImageUrl: string,    // Supabase Storage URL
+     characterId: string,        // UUID of selected character
+     prompt: string,             // Final prompt (already built by frontend)
+     scene?: {
+       background: string,
+       pose: string,
+       mood: string
+     }
+   }
+
+4. Load character from DB (verify user owns it or it's a preset)
+
+5. Determine generation mode:
+   a. FREE USER:
+      - Check user_credits.image_credits > 0
+      - If no credits: return 403 "Kredit habis! Upgrade ke BYOK."
+      - Use process.env.PLATFORM_KIE_AI_KEY
+      - Set used_byok = false
+   b. BYOK USER:
+      - Check profiles.is_lifetime = true
+      - Load encrypted key from user_api_keys where provider = 'kie_ai'
+      - If no key: return 400 "Setup API key dulu di Settings."
+      - Decrypt key using encryption utility
+      - Set used_byok = true
+
+6. Create generation record in DB:
+   INSERT INTO generations (
+     user_id, type: 'image', status: 'pending',
+     character_id, prompt, original_prompt,
+     product_image_url, used_byok,
+     metadata: { scene, model_used }
+   )
+
+7. Call Kie AI createImageJob():
+   - Pass the prompt
+   - Pass character.hero_image_url as reference (if available)
+   - Model: Nano Banana Pro (default for UGC generation)
+   - Use the appropriate API key (platform or user's)
+
+8. Update generation record with provider_job_id
+
+9. Return: { generationId, status: 'pending' }
+
+Error handling: all errors return Bahasa Indonesia messages.
+
+
+=== FILE 2: src/app/api/generate/[id]/status/route.ts ===
+
+GET handler — Poll generation status:
+
+1. Authenticate user
+2. Load generation record (verify user owns it)
+3. If status is 'completed' or 'failed': return current status immediately
+4. If status is 'pending' or 'processing':
+   a. Get the API key (platform or user's decrypted key)
+   b. Call Kie AI checkJobStatus(provider_job_id)
+   c. If still pending: return { status: 'processing' }
+   d. If completed:
+      - Download result image from Kie AI
+      - If FREE user: apply watermark using Sharp utility
+      - Upload to Supabase Storage: generations/{user_id}/image/{id}.jpg
+      - Update generation record:
+        status: 'completed', result_url, completed_at: now()
+      - If FREE user: deduct 1 credit from user_credits
+      - Log credit_transaction (type: 'usage', amount: -1)
+      - Return: { status: 'completed', resultUrl }
+   e. If failed:
+      - Update generation record: status: 'failed', error_message
+      - Return: { status: 'failed', error: 'Generasi gagal. Coba lagi.' }
+
+
+=== FILE 3: src/app/api/generate/character/route.ts ===
+
+POST handler — Generate 6-shot character pack:
+
+1. Authenticate user
+2. Parse body: { characterConfig: CharacterConfig }
+
+3. Determine mode (same free/BYOK check as image generation)
+   FREE: costs 1 credit, uses platform key
+   BYOK: costs ~Rp 2,520 from their key
+
+4. Call Gemini buildIdentityPrompt(characterConfig)
+   → Get the polished identity paragraph
+
+5. For each of the 6 shots, assemble full prompt:
+   assembleCharacterPrompt(identityPrompt, shotType)
+   Using correct model per shot (from SHOT_MODEL_MAP constant)
+
+6. Generate all 6 in parallel:
+   const results = await Promise.allSettled(
+     shots.map(shot => createImageJob({
+       prompt: shot.fullPrompt,
+       model: SHOT_MODEL_MAP[shot.type],
+       apiKey: activeKey
+     }))
+   )
+
+7. For each completed job, poll until done:
+   - Download image
+   - If FREE: apply watermark to hero_portrait only
+   - Upload to Supabase Storage: characters/{user_id}/{charId}/{shotType}.jpg
+
+8. Save character to DB:
+   INSERT INTO characters (
+     user_id, name, type, config,
+     identity_prompt: identityParagraph,
+     hero_image_url: heroStorageUrl,
+     reference_images: [url1...url6],
+     shot_metadata: { per-shot data with url, model, prompt },
+     is_preset: false
+   )
+
+9. If FREE: deduct 1 credit
+
+10. Return: { characterId, shots: [...urls], status: 'completed' }
+
+Note: Return partial results as they complete (via the polling 
+endpoint) so frontend can show progressive loading.
