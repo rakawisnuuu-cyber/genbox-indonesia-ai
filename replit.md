@@ -31,6 +31,9 @@ Frontend uses Supabase client directly for auth and data (RLS). Backend utilitie
 - `src/lib/ai/kie-ai.ts` — Kie AI image generation (job creation, status polling, image download) with retry/rate-limit handling
 - `src/lib/ai/prompt-templates.ts` — GENBOX Prompt Formula: realism, camera specs, lighting, skin detail, quality, negative prompt, shot configs, and `assembleCharacterPrompt()` combiner
 
+### Image Processing (src/lib/)
+- `src/lib/watermark.ts` — Sharp-based watermark for free trial images (diagonal "GENBOX FREE TRIAL" + corner "GENBOX" via SVG overlay, graceful fallback)
+
 ### Types (src/types/)
 - `src/types/ai.ts` — ProductAnalysis, CharacterConfig, SceneConfig, ShotType, ShotConfig, CameraSpec, KieAi types
 
