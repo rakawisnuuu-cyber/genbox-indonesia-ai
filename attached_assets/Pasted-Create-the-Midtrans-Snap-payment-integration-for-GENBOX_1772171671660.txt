@@ -1,0 +1,102 @@
+Create the Midtrans Snap payment integration for GENBOX.
+Product: "GENBOX BYOK Lifetime Access" — Rp 249,000 one-time.
+npm package midtrans-client is already installed.
+
+=== FILE 1: src/lib/midtrans.ts ===
+
+Setup Midtrans Snap client:
+import midtransClient from 'midtrans-client';
+
+const snap = new midtransClient.Snap({
+  isProduction: process.env.MIDTRANS_IS_PRODUCTION === 'true',
+  serverKey: process.env.MIDTRANS_SERVER_KEY!,
+  clientKey: process.env.MIDTRANS_CLIENT_KEY!
+});
+
+Export: snap instance + helper functions
+
+
+=== FILE 2: src/app/api/payment/create/route.ts ===
+
+POST handler — Create Midtrans Snap transaction token:
+
+1. Authenticate user (must be logged in)
+2. Load user profile from DB
+3. If already is_lifetime: return 400 "Kamu sudah BYOK Lifetime!"
+4. Generate unique order ID: `GENBOX-{userId.slice(0,8)}-{timestamp}`
+5. Create Snap transaction:
+   const transaction = await snap.createTransaction({
+     transaction_details: {
+       order_id: orderId,
+       gross_amount: 249000
+     },
+     item_details: [{
+       id: 'BYOK_LIFETIME',
+       price: 249000,
+       quantity: 1,
+       name: 'GENBOX BYOK Lifetime Access'
+     }],
+     customer_details: {
+       email: user.email,
+       first_name: user.full_name || user.email
+     }
+   })
+6. Store pending payment in DB:
+   INSERT INTO payments (
+     user_id, order_id: orderId, 
+     amount: 249000, status: 'pending',
+     provider: 'midtrans'
+   )
+7. Return: { token: transaction.token, orderId }
+
+
+=== FILE 3: src/app/api/webhook/midtrans/route.ts ===
+
+POST handler — Midtrans payment notification webhook:
+
+1. Parse notification body
+2. Verify signature:
+   const crypto = require('crypto');
+   const serverKey = process.env.MIDTRANS_SERVER_KEY;
+   const { order_id, status_code, gross_amount, signature_key } = body;
+   const expectedSignature = crypto
+     .createHash('sha512')
+     .update(order_id + status_code + gross_amount + serverKey)
+     .digest('hex');
+   if (signature_key !== expectedSignature) return 403;
+
+3. Check transaction_status:
+   - 'capture' or 'settlement': Payment SUCCESS
+   - 'pending': Still waiting
+   - 'deny', 'cancel', 'expire': Payment FAILED
+   - 'refund': Refunded
+
+4. On SUCCESS:
+   a. Find payment record by order_id
+   b. Update payment status to 'completed'
+   c. Extract user_id from payment record
+   d. Upgrade user profile:
+      UPDATE profiles SET 
+        tier = 'byok', 
+        is_lifetime = true,
+        lifetime_activated_at = now()
+      WHERE id = user_id
+   e. Log credit_transaction:
+      { user_id, type: 'purchase', amount: 0, 
+        description: 'GENBOX BYOK Lifetime via Midtrans' }
+   f. Return: { status: 'ok' }
+
+5. On FAILED/EXPIRED:
+   - Update payment status accordingly
+   - Return: { status: 'ok' }
+
+IMPORTANT: Always return 200 to Midtrans (even on errors), 
+otherwise they will retry indefinitely.
+
+
+=== FILE 4: src/app/api/credits/route.ts ===
+
+GET handler — Get current user's credit balance:
+1. Authenticate user
+2. Fetch from user_credits where user_id
+3. Return: { imageCredits, videoCredits, tier, isLifetime }

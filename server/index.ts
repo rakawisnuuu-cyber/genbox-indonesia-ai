@@ -6,6 +6,9 @@ import { generateCharacterRouter } from "./routes/generate-character";
 import { promptRouter } from "./routes/prompt";
 import { byokRouter } from "./routes/byok";
 import { byokValidateRouter } from "./routes/byok-validate";
+import { paymentCreateRouter } from "./routes/payment-create";
+import { webhookMidtransRouter } from "./routes/webhook-midtrans";
+import { creditsRouter } from "./routes/credits";
 
 const PORT = 5000;
 
@@ -19,6 +22,9 @@ async function start() {
   app.use("/api/prompt", promptRouter);
   app.use("/api/byok/validate", byokValidateRouter);
   app.use("/api/byok", byokRouter);
+  app.use("/api/payment/create", paymentCreateRouter);
+  app.use("/api/webhook/midtrans", webhookMidtransRouter);
+  app.use("/api/credits", creditsRouter);
 
   const vite = await createViteServer({
     server: { middlewareMode: true },
