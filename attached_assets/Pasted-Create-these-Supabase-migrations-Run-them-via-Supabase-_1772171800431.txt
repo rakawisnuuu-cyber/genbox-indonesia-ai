@@ -1,0 +1,95 @@
+Create these Supabase migrations. Run them via Supabase Dashboard 
+→ SQL Editor, or via supabase CLI.
+
+=== MIGRATION 1: Update characters table for 6-shot pack ===
+
+ALTER TABLE characters ADD COLUMN IF NOT EXISTS 
+  identity_prompt TEXT;
+
+ALTER TABLE characters ADD COLUMN IF NOT EXISTS 
+  hero_image_url TEXT;
+
+ALTER TABLE characters ADD COLUMN IF NOT EXISTS 
+  reference_images TEXT[] DEFAULT '{}';
+
+ALTER TABLE characters ADD COLUMN IF NOT EXISTS 
+  shot_metadata JSONB DEFAULT '{}';
+
+
+=== MIGRATION 2: Replace lynk_payments with payments table ===
+
+-- Drop old table if exists
+DROP TABLE IF EXISTS lynk_payments;
+
+-- Create new provider-agnostic payments table
+CREATE TABLE payments (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE,
+  order_id TEXT UNIQUE NOT NULL,
+  provider TEXT DEFAULT 'midtrans',
+  amount DECIMAL NOT NULL,
+  currency TEXT DEFAULT 'IDR',
+  status TEXT DEFAULT 'pending' 
+    CHECK (status IN ('pending','completed','failed','expired','refunded')),
+  provider_transaction_id TEXT,
+  raw_payload JSONB DEFAULT '{}',
+  created_at TIMESTAMPTZ DEFAULT now(),
+  updated_at TIMESTAMPTZ DEFAULT now()
+);
+
+-- RLS
+ALTER TABLE payments ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Users read own payments" ON payments 
+  FOR SELECT USING (auth.uid() = user_id);
+
+-- Index for webhook lookups
+CREATE INDEX idx_payments_order_id ON payments(order_id);
+
+
+=== MIGRATION 3: Storage buckets ===
+
+-- Run these in SQL Editor or create buckets via Supabase Dashboard:
+-- Bucket 1: product-images (public read, auth insert)
+-- Bucket 2: generations (public read, auth insert)
+-- Bucket 3: character-packs (public read, auth insert)
+
+INSERT INTO storage.buckets (id, name, public)
+VALUES 
+  ('product-images', 'product-images', true),
+  ('generations', 'generations', true),
+  ('character-packs', 'character-packs', true)
+ON CONFLICT (id) DO NOTHING;
+
+-- Storage policies
+CREATE POLICY "Auth users can upload product images"
+ON storage.objects FOR INSERT
+WITH CHECK (
+  bucket_id = 'product-images' 
+  AND auth.role() = 'authenticated'
+);
+
+CREATE POLICY "Anyone can view product images"
+ON storage.objects FOR SELECT
+USING (bucket_id = 'product-images');
+
+CREATE POLICY "Auth users can upload generations"
+ON storage.objects FOR INSERT
+WITH CHECK (
+  bucket_id = 'generations' 
+  AND auth.role() = 'authenticated'
+);
+
+CREATE POLICY "Anyone can view generations"
+ON storage.objects FOR SELECT
+USING (bucket_id = 'generations');
+
+CREATE POLICY "Auth users can upload character packs"
+ON storage.objects FOR INSERT
+WITH CHECK (
+  bucket_id = 'character-packs' 
+  AND auth.role() = 'authenticated'
+);
+
+CREATE POLICY "Anyone can view character packs"
+ON storage.objects FOR SELECT
+USING (bucket_id = 'character-packs');
