@@ -216,8 +216,12 @@ const DashboardLayout = () => {
     <div className="min-h-screen bg-background">
       <Sidebar />
       <MobileNav />
-      <main className="lg:ml-60 min-h-screen px-4 py-4 lg:px-6 lg:py-8 mt-14 lg:mt-0">
-        <div className="max-w-5xl mx-auto">
+      <main className={`lg:ml-60 min-h-screen mt-14 lg:mt-0 ${
+        location.pathname === "/generate"
+          ? ""
+          : "px-4 py-4 lg:px-6 lg:py-8"
+      }`}>
+        <div className={location.pathname === "/generate" ? "" : "max-w-5xl mx-auto"}>
           <Outlet />
         </div>
       </main>
