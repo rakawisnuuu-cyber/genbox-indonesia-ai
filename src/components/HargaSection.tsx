@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { Check, X, ArrowRight, Lock, Zap, Infinity, Gift, Sparkles } from "lucide-react";
+import { Check, X, ArrowRight, Lock, Zap, Infinity, Gift, Sparkles, Loader2 } from "lucide-react";
+import { usePayment } from "@/hooks/usePayment";
 
 const freeFeatures = [
   { text: "3 kredit gambar gratis", included: true },
@@ -26,6 +27,7 @@ const byokFeatures = [
 const HargaSection = () => {
   const [visible, setVisible] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const { buyLifetime, isProcessing } = usePayment();
 
   useEffect(() => {
     const obs = new IntersectionObserver(
@@ -90,12 +92,28 @@ const HargaSection = () => {
                 </p>
               </div>
 
-              <Link to="/register" className="animate-cta-glow mt-6 flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-6 py-4 text-sm font-bold uppercase tracking-wider text-primary-foreground transition-all hover:brightness-110 hover:-translate-y-0.5">
-                GENERATE SEKARANG <ArrowRight size={16} />
-              </Link>
+              <button
+                onClick={buyLifetime}
+                disabled={isProcessing}
+                className="animate-cta-glow mt-6 flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-6 py-4 text-sm font-bold uppercase tracking-wider text-primary-foreground transition-all hover:brightness-110 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {isProcessing ? (
+                  <>
+                    <Loader2 size={16} className="animate-spin" />
+                    MEMPROSES...
+                  </>
+                ) : (
+                  <>
+                    BELI SEKARANG <ArrowRight size={16} />
+                  </>
+                )}
+              </button>
 
               <p className="mt-3 text-center text-[11px] text-muted-foreground">
-                Pembayaran via QRIS, GoPay, OVO, Dana, Transfer Bank
+                Pembayaran aman via Midtrans
+              </p>
+              <p className="mt-1 text-center text-[10px] text-[#555]">
+                QRIS • GoPay • ShopeePay • Virtual Account • Kartu Kredit
               </p>
               <p className="mt-1 text-center text-[11px] text-muted-foreground">
                 <Zap size={11} className="mr-0.5 inline text-primary" /> Biaya API kamu sendiri: cuma ~Rp 150-500/gambar

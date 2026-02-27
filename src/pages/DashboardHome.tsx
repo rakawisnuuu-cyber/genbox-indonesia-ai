@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { useDashboardData } from "@/hooks/useDashboardData";
+import { usePayment } from "@/hooks/usePayment";
 import {
   Zap,
   Film,
@@ -9,6 +10,7 @@ import {
   UserCircle,
   Rocket,
   ArrowRight,
+  Loader2,
 } from "lucide-react";
 
 const sectionDelay = (i: number) => ({ animationDelay: `${i * 100}ms` });
@@ -16,6 +18,7 @@ const sectionDelay = (i: number) => ({ animationDelay: `${i * 100}ms` });
 const DashboardHome = () => {
   const { user } = useAuth();
   const { profile, credits, generations, generationCount } = useDashboardData();
+  const { buyLifetime, isProcessing } = usePayment();
 
   const firstName =
     profile?.full_name?.split(" ")[0] ||
@@ -171,12 +174,14 @@ const DashboardHome = () => {
                   </p>
                 </div>
               </div>
-              <Link
-                to="/#harga"
-                className="bg-primary text-primary-foreground font-bold px-5 py-2.5 rounded-lg text-sm hover:bg-lime-hover transition whitespace-nowrap"
+              <button
+                onClick={buyLifetime}
+                disabled={isProcessing}
+                className="bg-primary text-primary-foreground font-bold px-5 py-2.5 rounded-lg text-sm hover:bg-lime-hover transition whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
               >
-                UPGRADE — Rp 249.000
-              </Link>
+                {isProcessing && <Loader2 className="w-4 h-4 animate-spin" />}
+                {isProcessing ? "MEMPROSES..." : "UPGRADE — Rp 249.000"}
+              </button>
             </div>
           </div>
         </section>

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useLocation, useNavigate, Outlet } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { useDashboardData } from "@/hooks/useDashboardData";
+import { usePayment } from "@/hooks/usePayment";
 import { useIsMobile } from "@/hooks/use-mobile";
 import {
   LayoutDashboard,
@@ -16,6 +17,7 @@ import {
   Menu,
   X,
   Settings,
+  Loader2,
 } from "lucide-react";
 
 const navItems = [
@@ -36,6 +38,7 @@ const DashboardLayout = () => {
   const isMobile = useIsMobile();
   const [mobileOpen, setMobileOpen] = useState(false);
   const { profile, credits } = useDashboardData();
+  const { buyLifetime, isProcessing } = usePayment();
 
   const handleSignOut = async () => {
     await signOut();
@@ -96,12 +99,14 @@ const DashboardLayout = () => {
 
       {/* Upgrade button */}
       {tier === "free" && (
-        <Link
-          to="/#harga"
-          className="block w-full bg-primary text-primary-foreground font-bold text-sm py-2 rounded-lg text-center hover:bg-lime-hover transition mb-3"
+        <button
+          onClick={buyLifetime}
+          disabled={isProcessing}
+          className="block w-full bg-primary text-primary-foreground font-bold text-sm py-2 rounded-lg text-center hover:bg-lime-hover transition mb-3 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-1.5"
         >
-          UPGRADE — Rp 249k
-        </Link>
+          {isProcessing ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : null}
+          {isProcessing ? "MEMPROSES..." : "UPGRADE — Rp 249k"}
+        </button>
       )}
 
       {/* User row */}

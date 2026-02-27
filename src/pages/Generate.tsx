@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { useDashboardData } from "@/hooks/useDashboardData";
 import { useGeneration } from "@/hooks/useGeneration";
+import { usePayment } from "@/hooks/usePayment";
 import { supabase } from "@/integrations/supabase/client";
 import { SUPPORTED_IMAGE_TYPES, MAX_IMAGE_SIZE } from "@/lib/constants";
 import { toast } from "sonner";
@@ -75,6 +76,7 @@ const Generate = () => {
   const { user, session } = useAuth();
   const { profile, credits } = useDashboardData();
   const generation = useGeneration();
+  const { buyLifetime, isProcessing: paymentProcessing } = usePayment();
 
   // ─── Form state ───
   const [productImageUrl, setProductImageUrl] = useState<string | null>(null);
@@ -649,12 +651,13 @@ const Generate = () => {
                 <p className="text-sm text-[hsl(var(--muted-foreground))]">
                   Upgrade untuk hasil tanpa watermark
                 </p>
-                <Link
-                  to="/#harga"
-                  className="inline-block mt-2 bg-primary text-primary-foreground text-xs font-bold px-4 py-2 rounded-lg"
+                <button
+                  onClick={buyLifetime}
+                  disabled={paymentProcessing}
+                  className="inline-block mt-2 bg-primary text-primary-foreground text-xs font-bold px-4 py-2 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  UPGRADE — Rp 249.000
-                </Link>
+                  {paymentProcessing ? "MEMPROSES..." : "UPGRADE — Rp 249.000"}
+                </button>
               </div>
             )}
           </div>
