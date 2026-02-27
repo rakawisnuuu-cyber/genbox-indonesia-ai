@@ -1,0 +1,58 @@
+Create the prompt enhancement and BYOK management API routes.
+
+=== FILE 1: src/app/api/prompt/route.ts ===
+
+POST handler — AI prompt enhancement:
+
+1. Authenticate user
+2. Parse body:
+   {
+     productImageUrl: string,
+     characterId: string,
+     scene: { background, pose, mood }
+   }
+3. Load character config from DB
+4. Determine Gemini key:
+   - BYOK user with Gemini key saved? → use theirs (decrypt)
+   - Otherwise → use process.env.PLATFORM_GEMINI_KEY
+     (Gemini free tier is generous, okay to use platform key)
+5. Call analyzeProduct(productImageUrl, geminiKey)
+6. Call buildUGCPrompt({ productAnalysis, character, scene })
+7. Return: { prompt, productAnalysis }
+
+
+=== FILE 2: src/app/api/byok/route.ts ===
+
+POST handler — Save encrypted BYOK key:
+1. Authenticate user
+2. Verify profile.tier = 'byok' AND profile.is_lifetime = true
+   If not: return 403 "Upgrade ke BYOK Lifetime dulu."
+3. Parse body: { provider: 'kie_ai' | 'gemini' | 'kling', key: string }
+4. Encrypt key with AES-256-GCM (encryption utility)
+5. Upsert to user_api_keys:
+   supabase.from('user_api_keys').upsert({
+     user_id, provider, encrypted_key, is_valid: true,
+     last_validated_at: now(), updated_at: now()
+   }, { onConflict: 'user_id,provider' })
+6. Return: { success: true, message: "API key berhasil disimpan!" }
+
+DELETE handler — Remove a BYOK key:
+1. Authenticate user
+2. Parse body: { provider }
+3. Delete from user_api_keys where user_id + provider
+4. Return: { success: true }
+
+
+=== FILE 3: src/app/api/byok/validate/route.ts ===
+
+POST handler — Test if an API key is valid:
+1. Parse body: { provider, key }
+   (raw key, NOT encrypted — this is a test before saving)
+2. Based on provider:
+   - 'kie_ai': Make a minimal test call (list models or similar)
+   - 'gemini': Make a minimal test call (short completion)
+   - 'kling': Make a minimal test call
+3. Return: { valid: true/false, error?: string }
+4. Error messages in Bahasa Indonesia:
+   - Invalid: "API key tidak valid. Periksa kembali."
+   - Network error: "Gagal terhubung ke provider. Coba lagi."
