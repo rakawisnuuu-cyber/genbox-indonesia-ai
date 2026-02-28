@@ -2,7 +2,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 
-// Rebuild trigger v4
+// Rebuild trigger v5 - force dep optimization reset
 export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
