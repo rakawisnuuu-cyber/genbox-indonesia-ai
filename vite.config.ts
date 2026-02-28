@@ -2,7 +2,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 
-// Rebuild trigger v2
+// Rebuild trigger v3
 export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
